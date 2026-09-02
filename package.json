@@ -1,0 +1,13 @@
+{
+  "name": "mega-pfeifenheinis-4000",
+  "version": "1.0.0",
+  "description": "Magical Athlete als Hot-Seat- und Online-Spiel mit Bots (Node/Bun, ohne Abhängigkeiten)",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "start": "node build.js && node server/server.js",
+    "test": "node test/fuzz.js 300 && node test/replay.js && node test/bots.js 100"
+  },
+  "engines": { "node": ">=18" },
+  "license": "UNLICENSED"
+}

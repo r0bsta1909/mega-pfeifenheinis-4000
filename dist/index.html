@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mega-Pfeifenheinis 4000 – Magical Athlete</title>
+<style>
+:root{--ink:#141210;--paper:#fff;--pink:#F06BB8;--yellow:#F8B500;--green:#3E9B3A;--blue:#4D8FD6;--red:#E33D2B;--orange:#F07F1A;--purple:#8E44AD;--soft:#F3EFE6}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Trebuchet MS","Segoe UI",Helvetica,Arial,sans-serif;font-size:15px;line-height:1.35}
+body{min-height:100vh;padding:14px}
+.frame{border:4px solid var(--ink);border-radius:28px;position:relative;padding:14px;max-width:1500px;margin:0 auto;box-shadow:0 0 0 5px var(--pink),0 0 0 9px var(--yellow),0 0 0 13px var(--green),0 0 0 17px var(--blue),0 0 0 20px var(--ink)}
+h1,h2,h3{font-family:"Arial Black","Impact","Helvetica Neue",sans-serif;letter-spacing:-.01em;margin:0}
+h1{font-size:30px;line-height:1}h2{font-size:20px}h3{font-size:16px}
+button{font:inherit;font-weight:700;cursor:pointer;border:3px solid var(--ink);border-radius:12px;background:var(--yellow);padding:9px 14px;box-shadow:3px 3px 0 var(--ink);transition:transform .08s,box-shadow .08s;text-align:left;color:var(--ink)}
+button:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+button:disabled{opacity:.45;cursor:default;transform:none;box-shadow:3px 3px 0 var(--ink)}
+button.primary{background:var(--pink)}button.quiet{background:#fff}button.small{padding:5px 10px;font-size:13px;border-width:2px;box-shadow:2px 2px 0 var(--ink);border-radius:9px}
+input[type=text],select{font:inherit;border:3px solid var(--ink);border-radius:10px;padding:8px 10px;background:#fff}
+input[type=text]{width:100%}
+.hidden{display:none!important}
+.screen{max-width:760px;margin:10px auto}
+.screen p{margin:8px 0 14px}
+.row{display:flex;gap:10px;align-items:center;margin:8px 0;flex-wrap:wrap}
+.row .dot{width:22px;height:22px;border-radius:50%;border:3px solid var(--ink);flex:none}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.modes button{padding:18px;font-size:18px;display:block}
+.modes button small{display:block;font-weight:400;font-size:13px;margin-top:4px}
+.seat{display:grid;grid-template-columns:22px 1fr auto auto;gap:10px;align-items:center;border:3px solid var(--ink);border-radius:12px;padding:8px 10px;margin:6px 0;background:#fff}
+.seat .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--ink)}
+.seat .tag{font-size:12px;border:2px solid var(--ink);border-radius:999px;padding:1px 8px;background:var(--soft)}
+.seat.off{opacity:.55}
+.roomlist{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.roomlist button{display:flex;justify-content:space-between;background:#fff}
+.code{font-family:"Arial Black",Impact,sans-serif;font-size:34px;letter-spacing:.12em;background:var(--ink);color:#fff;border-radius:12px;padding:6px 16px;display:inline-block}
+.note{border:3px dashed var(--ink);border-radius:12px;padding:10px 12px;background:var(--soft);margin:10px 0}
+.err{background:#fdeeed;border:3px solid var(--red);border-radius:12px;padding:8px 12px;margin:8px 0;font-weight:700}
+.top{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.top .title small{display:block;font-weight:400;font-size:13px;margin-top:2px}
+.score{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:flex;align-items:center;gap:8px;border:3px solid var(--ink);border-radius:999px;padding:4px 12px 4px 6px;background:#fff;font-weight:700;position:relative}
+.chip.me{outline:3px solid var(--ink);outline-offset:2px}
+.chip .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--ink)}
+.chip .pts{background:var(--ink);color:#fff;border-radius:999px;padding:1px 9px;font-size:13px}
+.chip .st{font-size:11px;font-weight:400;opacity:.7}
+.racebadge{border:3px solid var(--ink);border-radius:12px;padding:6px 12px;background:var(--soft);font-weight:700}
+.toolbar{display:flex;gap:6px}
+.trackwrap{background:var(--ink);border-radius:26px;padding:12px;margin-bottom:14px}
+.track{display:grid;grid-template-columns:repeat(16,1fr);gap:5px}
+.sp{aspect-ratio:1/1;border-radius:9px;position:relative;display:flex;flex-wrap:wrap;align-content:flex-start;justify-content:center;gap:2px;padding:14px 2px 2px;min-height:52px;background:var(--blue)}
+.sp.c1{background:var(--pink)}.sp.c2{background:var(--yellow)}.sp.c3{background:var(--green)}.sp.c0{background:var(--blue)}.sp.five{background:var(--red)}
+.sp .num{position:absolute;top:1px;left:5px;font-family:"Arial Black",Impact,sans-serif;font-size:12px;color:rgba(0,0,0,.55)}
+.sp.five .num{color:#fff;font-size:15px}
+.sp .spec{position:absolute;top:0;right:3px;font-size:12px;font-weight:900;color:#fff;text-shadow:0 0 2px #000}
+.sp.start,.sp.finish{background:#fff;border:3px solid var(--red)}
+.sp.start .num,.sp.finish .num{color:var(--red);font-size:13px;left:4px}
+.sp.finish{background:repeating-linear-gradient(45deg,#fff 0 8px,#ddd 8px 16px)}
+.band{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:6px 10px;color:#fff;min-height:54px}
+.band .tname{font-family:"Arial Black",Impact,sans-serif;font-size:34px;letter-spacing:.02em;color:#fff;text-shadow:3px 3px 0 var(--pink)}
+.band .podium{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pod{background:#fff;color:var(--ink);border-radius:10px;padding:4px 10px;font-weight:700;display:flex;align-items:center;gap:6px}
+.pod.p1{background:var(--yellow)}.pod.p2{background:#d9d9d9}
+.tok{width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 0 rgba(0,0,0,.4);line-height:1;position:relative;transition:transform .45s cubic-bezier(.2,.8,.3,1.2)}
+.tok.down{transform:rotate(90deg);opacity:.75}
+.tok.cur{box-shadow:0 0 0 3px #fff,0 0 0 5px var(--ink);animation:pulse 1.2s infinite;z-index:2}
+.tok.flash{animation:flash .5s}
+@keyframes pulse{50%{box-shadow:0 0 0 3px #fff,0 0 0 8px var(--ink)}}
+@keyframes flash{0%,100%{filter:none}50%{filter:brightness(1.6) drop-shadow(0 0 6px #fff)}}
+@media (prefers-reduced-motion:reduce){.tok,.tok.cur,.tok.flash{animation:none;transition:none}}
+.cols{display:grid;grid-template-columns:270px 1fr 300px;gap:14px;align-items:start}
+.panel{border:3px solid var(--ink);border-radius:18px;padding:12px;background:#fff}
+.panel h3{margin-bottom:8px}
+.team{margin-bottom:10px;padding-bottom:10px;border-bottom:2px dashed #ccc}
+.team:last-child{border-bottom:0;margin-bottom:0}
+.team .who{display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:6px}
+.team .dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--ink)}
+.team .pts{margin-left:auto;font-size:13px;background:var(--ink);color:#fff;border-radius:999px;padding:0 8px}
+.mini{display:flex;align-items:center;gap:6px;font-size:13px;padding:3px 6px;border-radius:8px;border:2px solid var(--ink);margin-bottom:4px;background:#fff}
+.mini.used{opacity:.45;text-decoration:line-through}.mini.racing{background:var(--yellow);text-decoration:none;opacity:1}.mini.out{background:#eee}
+.mini .res{margin-left:auto;font-size:12px;font-weight:700}
+.action .turnbar{display:flex;align-items:center;gap:10px;border-radius:12px;padding:8px 12px;color:#fff;font-weight:700;margin-bottom:10px;background:var(--ink)}
+.action .turnbar .big{font-size:18px}
+.card{display:grid;grid-template-columns:64px 1fr;gap:10px;border:3px solid var(--ink);border-radius:14px;padding:10px;background:var(--soft);margin-bottom:10px}
+.card .em{font-size:42px;line-height:1;text-align:center}
+.card .pw{font-family:"Arial Black",Impact,sans-serif;font-size:12px;color:var(--red)}
+.card .nm{font-weight:900;font-size:18px}.card .tx{font-size:13px;margin-top:3px}
+.prompt h2{margin-bottom:4px}.prompt .txt{white-space:pre-line;margin-bottom:10px;color:#333}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts.cards button{width:calc(50% - 4px);display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start;background:#fff}
+.opts.cards button:hover{background:var(--yellow)}
+.opts.cards .em{font-size:30px;line-height:1}
+.opts.cards .hint{font-weight:400;font-size:12px;display:block;margin-top:2px;color:#333}
+.dicebox{display:flex;align-items:center;gap:12px;margin:8px 0}
+.dice{width:52px;height:52px;border:3px solid var(--ink);border-radius:12px;font-family:"Arial Black",Impact,sans-serif;font-size:30px;text-align:center;line-height:46px;background:#fff;box-shadow:3px 3px 0 var(--ink)}
+.dice.rolling{animation:shake .12s infinite}
+@keyframes shake{0%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}100%{transform:rotate(-8deg)}}
+.waiting{color:#666;font-style:italic;padding:8px 0}
+.waiting .spin{display:inline-block;width:12px;height:12px;border:3px solid #999;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.log{height:520px;overflow:auto;font-size:13px;padding-right:4px}
+.log div{padding:3px 7px;border-radius:7px;border-left:5px solid #ccc;background:#fafafa;margin-bottom:2px}
+.log .roll{border-color:var(--blue)}.log .move{border-color:#999}.log .power{border-color:var(--purple);background:#f6effa}
+.log .trip{border-color:var(--red);background:#fdeeed}.log .race{border-color:var(--yellow);background:#fff7dc;font-weight:700}
+.log .turn{border-color:var(--ink);background:#eee;font-weight:700;margin-top:6px}.log .points{border-color:var(--green);background:#ebf7ea}
+.log .track{border-color:var(--orange);background:#fff1e3}.log .warn{border-color:var(--red);font-weight:700}.log .notice{border-color:var(--pink);background:#fdeaf5;font-style:italic}
+.emojibar{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}
+.emojibar button{padding:3px 8px;font-size:18px;background:#fff;border-width:2px;box-shadow:2px 2px 0 var(--ink);border-radius:9px}
+.float{position:absolute;font-size:28px;animation:floatup 1.6s ease-out forwards;pointer-events:none;z-index:30;left:50%;top:-6px}
+@keyframes floatup{to{transform:translate(-50%,-70px);opacity:0}}
+.overlay{position:fixed;inset:0;background:rgba(20,18,16,.92);display:flex;align-items:center;justify-content:center;padding:20px;z-index:20;overflow:auto}
+.cover{background:#fff;border:4px solid var(--ink);border-radius:24px;padding:28px;max-width:600px;width:100%;text-align:center;box-shadow:6px 6px 0 var(--pink)}
+.cover .big{font-size:60px;line-height:1;margin:6px 0 10px}
+.cover .opts{justify-content:center;margin-top:10px}
+.cover .opts.cards button{text-align:left}
+.final table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+.final td,.final th{border-bottom:2px solid #ddd;padding:6px 8px;text-align:left}
+.final tr.win td{background:var(--yellow);font-weight:700}
+.rules{font-size:13px;color:#444;margin-top:10px}.rules summary{cursor:pointer;font-weight:700}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:40}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:700;z-index:50;box-shadow:3px 3px 0 var(--pink)}
+@media (max-width:1100px){.cols{grid-template-columns:1fr 1fr}.cols .log-panel{grid-column:1/-1}.log{height:260px}.sp{min-height:0;padding-top:12px}.tok{width:20px;height:20px;font-size:11px}.band .tname{font-size:24px}}
+@media (max-width:760px){body{padding:8px}.frame{padding:10px;border-radius:18px}.cols{grid-template-columns:1fr}.track{gap:3px}.sp{min-height:34px;padding-top:10px;border-radius:5px}.sp .num{font-size:9px;left:2px}.tok{width:16px;height:16px;font-size:9px;border-width:2px}.band .tname{font-size:20px}.opts.cards button{width:100%}.modes{grid-template-columns:1fr}.cols .action{order:-1}.log{height:220px}}
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <!-- Startbildschirm -->
+  <div id="home" class="screen">
+    <h1>Mega-Pfeifenheinis 4000</h1>
+    <p>Magical Athlete als Hot-Seat- oder Online-Rennen. Läufer draften, vier Rennen fahren, Chaos ertragen.</p>
+    <div class="row"><label for="myName"><b>Dein Name</b></label><input type="text" id="myName" maxlength="16" style="width:220px"></div>
+    <div class="modes">
+      <button class="primary" id="goOnline">🌐 Online spielen<small>Lobby erstellen oder per Link beitreten, Bots zuschaltbar</small></button>
+      <button id="goLocal">🛋️ Lokal am Gerät<small>Hot Seat mit Freunden und/oder Bots, ohne Internet</small></button>
+    </div>
+    <details class="rules">
+      <summary>Kurzregeln &amp; Umsetzungshinweise</summary>
+      <ul>
+        <li>Draft: Snake-Draft in zwei Runden aus je 2× Spieleranzahl aufgedeckten Läufern. Jedes Team hat 4 Läufer, jeder läuft genau einmal. 2 Spieler: offizielle Variante mit 8 Läufern pro Team und 2 Läufern pro Rennen.</li>
+        <li>Hauptzug: 1W6 würfeln, so viele Felder ziehen. Sobald der zweite Läufer das Ziel überquert, endet das Rennen sofort.</li>
+        <li>Punkte: Gold 3/4/5/6, Silber 1/2/3/4 (Rennen 1–4). Bronze-Chips (Sterne, Lovable Loser, Sisyphus) zählen 1 Punkt.</li>
+        <li>Strecken: Mild Mile ohne Sonderfelder, Wild Wilds mit Pfeilen, Steinen (Sturz) und Sternen (+1 Punkt) – Belegung ist eine eigene Auslegung.</li>
+        <li>Prioritätsreihenfolge: Streckenfelder → aktiver Spieler → übrige Spieler im Uhrzeigersinn. Endlosschleifen werden einmal durchlaufen, dann beendet (Regel 8).</li>
+        <li>Online: Wer die Verbindung verliert, wird nach 45 s vom Autopiloten vertreten und übernimmt beim Zurückkommen wieder. Spielstände werden im Browser gesichert und können nach einem Server-Neustart wiederhergestellt werden.</li>
+      </ul>
+    </details>
+  </div>
+
+  <!-- Lokales Setup -->
+  <div id="localSetup" class="screen hidden">
+    <h1>Lokales Spiel</h1>
+    <p>Sitze belegen: Mensch (Hot Seat) oder Bot. Bots reagieren wie Mitspieler mit Bedenkzeit.</p>
+    <div id="localSeats"></div>
+    <div class="row"><button class="small" id="addLocalHuman">+ Mensch</button><button class="small" id="addLocalBot">+ Bot</button></div>
+    <div class="row"><label><input type="checkbox" id="localSingle2p"> Bei 2 Spielern klassisch (1 Läufer pro Rennen) statt Doppel-Variante</label></div>
+    <div class="row" style="margin-top:14px"><button class="primary" id="startLocal">Spiel starten</button><button class="quiet" id="backHome1">Zurück</button></div>
+  </div>
+
+  <!-- Online-Lobby -->
+  <div id="lobby" class="screen hidden">
+    <h1>Online-Lobby</h1>
+    <div id="connStatus" class="note">Verbinde…</div>
+    <div id="lobbyErr" class="err hidden"></div>
+    <div class="row"><button class="primary" id="createRoom">Raum erstellen</button>
+      <input type="text" id="joinCode" placeholder="Raumcode" maxlength="5" style="width:150px;text-transform:uppercase"><button id="joinRoom">Beitreten</button>
+      <button class="quiet" id="backHome2">Zurück</button></div>
+    <div id="restoreBox" class="note hidden"><b>Gespeicherte Partie gefunden.</b> <span id="restoreInfo"></span> <button class="small" id="restoreBtn">Partie wiederherstellen</button></div>
+    <h3>Offene Räume</h3>
+    <div id="roomList" class="roomlist"><div class="waiting">Keine offenen Räume.</div></div>
+  </div>
+
+  <!-- Raum -->
+  <div id="room" class="screen hidden">
+    <h1>Raum</h1>
+    <div class="row"><span class="code" id="roomCode">-----</span><button class="small" id="copyLink">Link kopieren</button></div>
+    <div id="roomErr" class="err hidden"></div>
+    <div id="seats"></div>
+    <div class="row" id="hostTools"><button class="small" id="addBot">+ Bot</button><label id="single2pWrap" class="hidden"><input type="checkbox" id="single2p"> 2 Spieler klassisch (1 Läufer pro Rennen)</label></div>
+    <div class="row" style="margin-top:14px"><button class="primary" id="startRoom">Spiel starten</button><button class="quiet" id="leaveRoom">Raum verlassen</button></div>
+    <div class="note" id="roomHint">Der Host startet, sobald alle da sind. Mindestens 2 Sitze, maximal 6.</div>
+  </div>
+
+  <!-- Spiel -->
+  <div id="game" class="hidden">
+    <div class="top">
+      <div class="title"><h1>Mega-Pfeifenheinis 4000</h1><small id="phaseLine"></small></div>
+      <div id="racebadge" class="racebadge"></div>
+      <div id="score" class="score"></div>
+      <div class="toolbar"><button class="small quiet" id="soundBtn" title="Ton">🔊</button><button class="small quiet" id="quitBtn" title="Spiel verlassen">✕</button></div>
+    </div>
+    <div class="trackwrap"><div id="track" class="track"></div></div>
+    <div class="cols">
+      <div class="panel teams"><h3>Teams</h3><div id="teams"></div></div>
+      <div class="panel action"><div id="turnbar" class="turnbar"></div><div id="racercard"></div><div id="dicebox" class="dicebox hidden"><div id="dice" class="dice">?</div><span id="diceText"></span></div><div id="prompt" class="prompt"></div><div id="emojibar" class="emojibar hidden"></div></div>
+      <div class="panel log-panel"><h3>Protokoll</h3><div id="log" class="log"></div></div>
+    </div>
+  </div>
+  <div id="overlay" class="overlay hidden"></div>
+</div>
+<canvas id="confetti"></canvas>
+
+<script>(function(){
+'use strict';
+/* ============================================================
+   MAGICAL ATHLETE – ENGINE (deterministisch, UI-frei)
+   Jede Entscheidung läuft über ui.choose(spec). Die Partie ist
+   durch Seed + Antwortfolge vollständig bestimmt (Replay).
+   ============================================================ */
+const TRACK_LEN = 30;
+const FINISH = TRACK_LEN + 1;
+const SCHEDULE = ['mild', 'wild', 'mild', 'wild'];
+const GOLD = [3, 4, 5, 6];
+const SILVER = [1, 2, 3, 4];
+const TRACKS = {
+  mild: { key: 'mild', name: 'Mild Mile', secondCorner: 16, specials: {} },
+  wild: { key: 'wild', name: 'Wild Wilds', secondCorner: 16, specials: {
+    4: { type: 'arrow', delta: 3 }, 8: { type: 'rock' }, 11: { type: 'arrow', delta: -2 },
+    14: { type: 'star' }, 19: { type: 'arrow', delta: 2 }, 22: { type: 'rock' },
+    26: { type: 'arrow', delta: -3 }, 28: { type: 'star' } } }
+};
+const PLAYER_COLORS = ['#E33D2B', '#2F6FDB', '#3E9B3A', '#F0A500', '#8E44AD', '#F07F1A'];
+
+/* Läuferdaten: bewusst als austauschbare Datenschicht gehalten. */
+const RACERS = [
+  { id: 'alchemist', name: 'Alchemist', emoji: '⚗️', power: 'Transmutieren', text: 'Würfle ich 1 oder 2 für meinen Hauptzug, kann ich stattdessen 4 ziehen.' },
+  { id: 'babayaga', name: 'Baba Yaga', emoji: '🏚️', power: 'Leg it', text: 'Wer auf meinem Feld hält, stürzt – und wer auf einem Feld steht, auf dem ich halte, ebenso.' },
+  { id: 'banana', name: 'Banana', emoji: '🍌', power: 'Ausrutscher', text: 'Jeder Läufer, der mich überholt, stürzt.' },
+  { id: 'blimp', name: 'Blimp', emoji: '🎈', power: 'Blow It', text: 'Beginne ich meinen Zug vor der zweiten Kurve: +3 auf den Hauptzug. Ab der Kurve: -1.' },
+  { id: 'centaur', name: 'Centaur', emoji: '🐴', power: 'Hufschlag', text: 'Überhole ich einen Läufer, zieht er 2 zurück (nie hinter Start).' },
+  { id: 'cheerleader', name: 'Cheerleader', emoji: '🎀', power: 'Rah Rah', text: 'Vor meinem Hauptzug kann ich die Letztplatzierten 2 ziehen lassen. Tue ich das, ziehe ich 1.' },
+  { id: 'coach', name: 'Coach', emoji: '🦎', power: 'Guter Einsatz', text: 'Alle auf meinem Feld (auch ich) erhalten +1 auf ihren Hauptzug.' },
+  { id: 'copycat', name: 'Copycat', emoji: '🐱', power: 'Copy That', text: 'Ich habe dauerhaft die Fähigkeit des führenden Läufers. Bei Gleichstand wähle ich. „Vor dem Rennen“-Fähigkeiten kopiere ich nie.' },
+  { id: 'dicemonger', name: 'Dicemonger', emoji: '🎲', power: 'Dicey Deals', text: 'Jeder darf einmal pro Zug seinen Hauptzug-Wurf wiederholen. Tut es ein anderer, ziehe ich 1.' },
+  { id: 'duelist', name: 'Duelist', emoji: '🤺', power: 'Duell!', text: 'Teilt ein Läufer mein Feld, kann ich ein Duell fordern: beide würfeln, der Höhere zieht 2. Gleichstand gewinne ich. Auch mehrfach und außerhalb meines Zugs.' },
+  { id: 'egg', name: 'Egg', emoji: '🥚', power: 'Scramble', text: 'Vor meinem Rennen ziehe ich 3 neue Läufer vom Stapel und wähle einen. Ich habe seine Fähigkeit (auch „vor dem Rennen“).' },
+  { id: 'flipflop', name: 'Flip Flop', emoji: '🩴', power: 'Flop Flip', text: 'Statt zu würfeln kann ich mit einem anderen Läufer den Platz tauschen (Warp).' },
+  { id: 'genius', name: 'Genius', emoji: '🧠', power: 'Think Good', text: 'Ich sage meinen Wurf voraus. Stimmt er, bekomme ich nach diesem Zug einen weiteren.' },
+  { id: 'gunk', name: 'Gunk', emoji: '🟢', power: 'Goop', text: 'Andere Läufer erhalten -1 auf ihren Hauptzug.' },
+  { id: 'hare', name: 'Hare', emoji: '🐇', power: 'Hybris', text: '+2 auf meinen Hauptzug. Beginne ich meinen Zug allein in Führung, überspringe ich meinen Hauptzug.' },
+  { id: 'heckler', name: 'Heckler', emoji: '📣', power: 'Schadenfreude', text: 'Beendet ein Läufer seinen Zug max. 1 Feld von seinem Startpunkt entfernt, ziehe ich 2.' },
+  { id: 'hugebaby', name: 'Huge Baby', emoji: '👶', power: 'Really Huge', text: 'Niemand darf auf meinem Feld stehen (außer Start). Wer dort landen würde, kommt auf das Feld hinter mir.' },
+  { id: 'hypnotist', name: 'Hypnotist', emoji: '🌀', power: 'Hsssst', text: 'Vor meinem Hauptzug kann ich einen Läufer auf mein Feld warpen.' },
+  { id: 'inchworm', name: 'Inchworm', emoji: '🪱', power: 'Wriggle', text: 'Würfelt ein anderer Läufer eine 1 für seinen Hauptzug, überspringt er diesen Zug und ich ziehe 1.' },
+  { id: 'lackey', name: 'Lackey', emoji: '🎩', power: 'Sehr wohl, Sire', text: 'Würfelt ein anderer Läufer eine 6 für seinen Hauptzug, ziehe ich 2, bevor er zieht.' },
+  { id: 'leaptoad', name: 'Leaptoad', emoji: '🐸', power: 'Jumpfrog', text: 'Beim Ziehen überspringe ich Felder, auf denen andere Läufer stehen.' },
+  { id: 'legs', name: 'Legs', emoji: '🦵', power: 'Joggen', text: 'Ich kann statt zu würfeln 5 ziehen (zählt als Hauptzug).' },
+  { id: 'loser', name: 'Lovable Loser', emoji: '🥺', power: 'D\'aww', text: 'Vor meinem Hauptzug erhalte ich 1 Punkt, wenn ich allein Letzter bin.' },
+  { id: 'magician', name: 'Magician', emoji: '🪄', power: 'Poof', text: 'Ich kann meinen Hauptzug-Wurf bis zu zweimal wiederholen.' },
+  { id: 'mastermind', name: 'Mastermind', emoji: '🕴️', power: 'Know-It-All', text: 'Zu Beginn meines ersten Zugs sage ich den Sieger voraus. Stimmt es, endet das Rennen sofort und ich werde Zweiter (bei Selbst-Tipp: 1. und 2.).' },
+  { id: 'mouth', name: 'M.O.U.T.H.', emoji: '👄', power: 'Chomp', text: 'Halte ich auf einem Feld mit genau einem anderen Läufer, wird dieser aus dem Rennen eliminiert.' },
+  { id: 'party', name: 'Party Animal', emoji: '🎉', power: 'Animalischer Magnetismus', text: 'Vor meinem Hauptzug ziehen alle Läufer 1 Feld auf mich zu. Jeder andere Läufer auf meinem Feld gibt mir +1.' },
+  { id: 'rocket', name: 'Rocket Scientist', emoji: '🚀', power: 'Kablooey', text: 'Nach dem Würfeln kann ich das Doppelte ziehen – danach stürze ich.' },
+  { id: 'romantic', name: 'Romantic', emoji: '💘', power: 'Ah, Liebe!', text: 'Hält jemand auf einem Feld mit genau einem anderen Läufer, ziehe ich 2.' },
+  { id: 'scoocher', name: 'Scoocher', emoji: '🐛', power: 'Scooch Scooch', text: 'Immer wenn die Fähigkeit eines anderen Läufers auslöst, ziehe ich 1.' },
+  { id: 'sisyphus', name: 'Sisyphus', emoji: '🪨', power: 'Keep Rollin\'', text: 'Vor dem Rennen erhalte ich 4 Punkte. Würfle ich eine 6, warpe ich statt zu ziehen zum Start und verliere 1 Punkt.' },
+  { id: 'skipper', name: 'Skipper', emoji: '⚓', power: 'Salty Dog', text: 'Würfelt jemand eine 1 für seinen Hauptzug, bin ich als Nächster dran.' },
+  { id: 'stickler', name: 'Stickler', emoji: '🧐', power: 'Eigentlich…', text: 'Andere Läufer müssen das Ziel mit exakter Schrittzahl erreichen. Überschießen sie, bewegen sie sich nicht.' },
+  { id: 'suckerfish', name: 'Suckerfish', emoji: '🐟', power: 'Sauger!', text: 'Bewegt sich ein Läufer von meinem Feld weg, kann ich auf sein neues Feld mitziehen – auch über die Ziellinie.' },
+  { id: 'thirdwheel', name: 'Third Wheel', emoji: '🎡', power: 'Roll Through', text: 'Vor meinem Hauptzug kann ich auf ein Feld mit genau 2 Läufern warpen.' },
+  { id: 'twin', name: 'Twin', emoji: '👯', power: 'Double Dip', text: 'Vor meinem Rennen kann ich einen Läufer wählen, der ein früheres Rennen gewonnen hat, und mit seiner Fähigkeit laufen.' },
+];
+const RACER_BY_ID = Object.fromEntries(RACERS.map(r => [r.id, r]));
+const BEFORE_RACE_POWERS = ['egg', 'twin', 'sisyphus'];
+
+function mulberry32(seed) {
+  let a = seed >>> 0;
+  return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+
+class RaceEnd extends Error { constructor() { super('race end'); this.isRaceEnd = true; } }
+
+class Game {
+  /**
+   * @param {object} o  { playerNames:[], seed:number, ui:{log,render,choose,pause}, variant?:'single'|'double' }
+   */
+  constructor(o) {
+    this.ui = o.ui;
+    this.seed = o.seed == null ? Math.floor(Math.random() * 2 ** 31) : o.seed;
+    this.rng = mulberry32(this.seed);
+    const n = o.playerNames.length;
+    this.variant = o.variant || (n === 2 ? 'double' : 'single');
+    this.perPlayer = this.variant === 'double' ? 2 : 1;
+    this.teamSize = 4 * this.perPlayer;
+    this.players = o.playerNames.map((name, i) => ({ idx: i, name, color: PLAYER_COLORS[i], team: [], used: [], points: 0, results: [] }));
+    this.phase = 'setup';
+    this.race = null; this.raceIdx = -1; this.startPlayer = 0; this.depth = 0;
+    this.deck = []; this.pool = []; this.draftInfo = null; this.winners = []; this.qid = 0;
+    this.logSeq = 0; this.logs = [];
+    this.raceHistory = [];
+  }
+
+  /* ---------- Hilfen ---------- */
+  d6() { return 1 + Math.floor(this.rng() * 6); }
+  shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(this.rng() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  log(text, kind, meta) { const e = { seq: ++this.logSeq, text, kind: kind || 'info', meta: meta || null }; this.logs.push(e); if (this.logs.length > 400) this.logs.shift(); this.ui.log(text, e.kind, meta); }
+  render() { this.ui.render(this); }
+  pname(i) { return this.players[i].name; }
+  rname(r) { const as = r.as && r.as !== r.id ? ` als ${RACER_BY_ID[r.as].name}` : ''; return `${r.def.emoji} ${r.def.name}${as} (${this.pname(r.player)})`; }
+  spaceName(p) { return p === 0 ? 'Start' : p > TRACK_LEN ? 'Ziel' : `Feld ${p}`; }
+  active() { return this.race.racers.filter(x => x.active); }
+  racersAt(p, except) { return this.race.racers.filter(x => x.active && x.pos === p && x !== except); }
+  aloneInLead(r) { const a = this.active(); const mx = Math.max(...a.map(x => x.pos)); return r.pos === mx && a.filter(x => x.pos === mx).length === 1; }
+  aloneInLast(r) { const a = this.active(); const mn = Math.min(...a.map(x => x.pos)); return r.pos === mn && a.filter(x => x.pos === mn).length === 1; }
+  playerOrder(startPi) { const n = this.players.length; return Array.from({ length: n }, (_, k) => (startPi + k) % n); }
+  priorityOrder() { // Läufer: aktueller Spieler zuerst (aktueller Läufer ganz vorn), dann im Uhrzeigersinn
+    const cur = this.race.current; const startPi = cur ? cur.player : this.race.currentPlayer;
+    const out = [];
+    for (const pi of this.playerOrder(startPi)) {
+      const mine = this.race.racers.filter(x => x.player === pi);
+      if (cur && cur.player === pi) { out.push(cur); mine.filter(x => x !== cur).forEach(x => out.push(x)); } else mine.forEach(x => out.push(x));
+    }
+    return out;
+  }
+  othersInOrder(r) { return this.priorityOrder().filter(x => x !== r); }
+  addPoints(pi, n, why) { this.players[pi].points += n; this.log(`${this.pname(pi)} ${n >= 0 ? 'erhält' : 'verliert'} ${Math.abs(n)} Punkt${Math.abs(n) === 1 ? '' : 'e'} (${why}).`, 'points', { player: pi, delta: n }); }
+  async choose(spec) {
+    spec.qid = ++this.qid; if (spec.player == null) spec.player = 0;
+    this.render();
+    const v = await this.ui.choose(spec);
+    if (!spec.options.some(o => o.value === v)) throw new Error(`Ungültige Antwort auf Frage ${spec.qid} (${spec.kind})`);
+    return v;
+  }
+  async yesNo(player, title, text, racer, sub, extra) {
+    return this.choose(Object.assign({ kind: 'optional', sub, player, title, text, racer, options: [{ label: 'Ja, Fähigkeit nutzen', value: true }, { label: 'Nein', value: false }] }, extra || {}));
+  }
+
+  /* ---------- Effektive Fähigkeit (Copycat / Egg / Twin) ---------- */
+  pw(r, guard) {
+    guard = guard || 0;
+    if (guard > 3 || !r) return null;
+    if (r.id === 'egg' || r.id === 'twin') { if (!r.as) return null; return this.resolveAs(r, r.as, guard); }
+    if (r.id === 'copycat') return this.copyTarget(r, guard);
+    return r.id;
+  }
+  resolveAs(r, id, guard) { if (id === 'copycat') return this.copyTarget(r, guard); return id; }
+  copyTarget(r, guard) {
+    if (!this.race || !r.active) return null;
+    const cands = this.copyCandidates(r);
+    if (!cands.length) return null;
+    const t = cands.length === 1 ? cands[0] : (cands.find(x => x.id === r.copyPick) || cands[0]);
+    if (t === r) return null;
+    return this.pw(t, guard + 1);
+  }
+  copyCandidates(r) {
+    const a = this.active().filter(x => x !== r);
+    if (!a.length) return [];
+    const mx = Math.max(...a.map(x => x.pos));
+    if (r.pos > mx) return [];
+    return a.filter(x => x.pos === mx);
+  }
+  has(r, id) { return r.active && this.pw(r) === id; }
+  findAll(id) { return this.race ? this.race.racers.filter(x => x.active && this.pw(x) === id) : []; }
+  find(id) { return this.findAll(id)[0] || null; }
+  async settleCopyPick(pi) {
+    for (const r of this.race.racers) {
+      if (!r.active || r.player !== pi) continue;
+      const isCopy = r.id === 'copycat' || ((r.id === 'egg' || r.id === 'twin') && r.as === 'copycat');
+      if (!isCopy) continue;
+      const cands = this.copyCandidates(r);
+      if (cands.length < 2 || cands.some(x => x.id === r.copyPick)) continue;
+      r.copyPick = await this.choose({ kind: 'copyPick', player: r.player, racer: r, title: 'Copycat: Wen kopieren?', text: 'Mehrere Läufer führen – wähle, wessen Fähigkeit du hast.', options: cands.map(x => ({ label: this.rname(x), value: x.id, hint: RACER_BY_ID[this.pw(x) || x.id].text })) });
+      this.log(`${r.def.name} kopiert jetzt ${RACER_BY_ID[r.copyPick].name}.`, 'power');
+    }
+  }
+
+  /* ---------- Spielablauf ---------- */
+  async play() {
+    this.deck = this.shuffle(RACERS.map(r => r.id));
+    const rolls = this.players.map(() => this.d6());
+    let best = Math.max(...rolls); let cands = this.players.filter((_, i) => rolls[i] === best);
+    while (cands.length > 1) { const rr = cands.map(() => this.d6()); const b = Math.max(...rr); cands = cands.filter((_, i) => rr[i] === b); }
+    this.startPlayer = cands[0].idx;
+    this.log(`Roll-off: ${this.players.map((p, i) => `${p.name} ${rolls[i]}`).join(', ')} → ${this.pname(this.startPlayer)} beginnt.`, 'roll');
+    if (this.variant === 'double') this.log('2-Spieler-Variante: 8 Läufer pro Team, 2 Läufer pro Rennen.', 'race');
+    await this.draft();
+    for (let i = 0; i < 4; i++) await this.runRace(i);
+    this.phase = 'final';
+    const mx = Math.max(...this.players.map(p => p.points));
+    this.winners = this.players.filter(p => p.points === mx);
+    this.log(`Spielende! ${this.winners.map(w => w.name).join(' & ')} gewinn${this.winners.length > 1 ? 'en gemeinsam' : 't'} mit ${mx} Punkten.`, 'race');
+    this.render();
+    await this.choose({ kind: 'continue', player: this.winners[0].idx, title: 'Siegerehrung', text: 'Die Partie ist beendet.', options: [{ label: 'Endstand ansehen', value: 1 }] });
+  }
+
+  async draft() {
+    this.phase = 'draft';
+    const n = this.players.length;
+    let rounds;
+    if (this.variant === 'double') {
+      const s = this.startPlayer, o = 1 - s;
+      rounds = [{ order: [s, o, o, s, s, o, o, s], cards: 8 }, { order: [o, s, s, o, o, s, s, o], cards: 8 }];
+    } else {
+      rounds = [0, 1].map(round => { const fwd = this.playerOrder((this.startPlayer + round) % n); return { order: fwd.concat(fwd.slice().reverse()), cards: 2 * n }; });
+    }
+    for (let round = 0; round < rounds.length; round++) {
+      this.pool = this.deck.splice(0, rounds[round].cards);
+      this.log(`Draft-Runde ${round + 1}: ${this.pool.length} Läufer aufgedeckt.`, 'race');
+      const order = rounds[round].order;
+      for (let k = 0; k < order.length; k++) {
+        const pi = order[k];
+        this.draftInfo = { round: round + 1, pick: k + 1, total: order.length, player: pi };
+        const id = await this.choose({ kind: 'draft', player: pi, title: `${this.pname(pi)} draftet`, text: `Pick ${k + 1} von ${order.length} · Runde ${round + 1}`, options: this.pool.map(x => ({ label: `${RACER_BY_ID[x].emoji} ${RACER_BY_ID[x].name}`, value: x, hint: RACER_BY_ID[x].text })) });
+        this.pool.splice(this.pool.indexOf(id), 1);
+        this.players[pi].team.push(id);
+        this.log(`${this.pname(pi)} draftet ${RACER_BY_ID[id].emoji} ${RACER_BY_ID[id].name}.`, 'info', { player: pi, racer: id });
+      }
+    }
+    this.draftInfo = null; this.pool = [];
+  }
+
+  async runRace(raceIdx) {
+    this.raceIdx = raceIdx;
+    this.phase = 'pick';
+    const track = TRACKS[SCHEDULE[raceIdx]];
+    const race = this.race = { idx: raceIdx, track, racers: [], finishers: [], over: false, current: null, currentPlayer: this.startPlayer, turn: 0, elimCount: 0, nextOverride: null, extraTurn: null, dicemongerUsed: false, picks: {}, seen: new Set(), firstTurnDone: {} };
+    this.log(`━━━ Rennen ${raceIdx + 1}: ${track.name} (Gold ${GOLD[raceIdx]} · Silber ${SILVER[raceIdx]}) ━━━`, 'race');
+    for (const pi of this.playerOrder(this.startPlayer)) {
+      const p = this.players[pi]; race.picks[pi] = [];
+      for (let k = 0; k < this.perPlayer; k++) {
+        const avail = p.team.filter(id => !p.used.includes(id) && !race.picks[pi].includes(id));
+        const id = avail.length === 1 ? avail[0] : await this.choose({ kind: 'pick', secret: true, player: pi, title: `${p.name}: Läufer ${this.perPlayer > 1 ? (k + 1) + ' ' : ''}wählen`, text: `Rennen ${raceIdx + 1} · ${track.name}`, options: avail.map(x => ({ label: `${RACER_BY_ID[x].emoji} ${RACER_BY_ID[x].name}`, value: x, hint: RACER_BY_ID[x].text })) });
+        race.picks[pi].push(id);
+      }
+    }
+    for (const pi of this.playerOrder(this.startPlayer)) {
+      for (const id of race.picks[pi]) {
+        this.players[pi].used.push(id);
+        race.racers.push({ id, def: RACER_BY_ID[id], player: pi, pos: 0, tripped: false, active: true, finished: null, eliminated: null, prediction: null, predicted: false, as: null, copyPick: null });
+      }
+    }
+    this.phase = 'race';
+    this.log(`Aufgedeckt: ${race.racers.map(r => this.rname(r)).join(', ')}. ${this.pname(this.startPlayer)} beginnt.`, 'race');
+    // „Vor dem Rennen“-Fähigkeiten (Egg → Twin → Sisyphus), in Spielerreihenfolge
+    for (const pi of this.playerOrder(this.startPlayer)) {
+      for (const r of race.racers.filter(x => x.player === pi)) {
+        if (r.id === 'egg') {
+          const draw = this.deck.splice(0, 3);
+          if (!draw.length) { this.log('Egg: Der Stapel ist leer – kein Schlüpfen möglich.', 'power'); continue; }
+          r.as = await this.choose({ kind: 'eggPick', player: pi, racer: r, title: 'Egg: Was schlüpft?', text: 'Wähle einen der drei gezogenen Läufer – Egg hat seine Fähigkeit.', options: draw.map(x => ({ label: `${RACER_BY_ID[x].emoji} ${RACER_BY_ID[x].name}`, value: x, hint: RACER_BY_ID[x].text })) });
+          draw.filter(x => x !== r.as).forEach(x => this.deck.push(x));
+          this.log(`Egg schlüpft als ${RACER_BY_ID[r.as].emoji} ${RACER_BY_ID[r.as].name}.`, 'power');
+        }
+        if (r.id === 'twin') {
+          const won = [...new Set(this.raceHistory.map(h => h.first).filter(Boolean))].filter(id => id !== 'twin' && id !== 'egg');
+          if (!won.length) { this.log('Twin: Noch kein Rennsieger zum Kopieren.', 'power'); continue; }
+          const opts = won.map(x => ({ label: `${RACER_BY_ID[x].emoji} ${RACER_BY_ID[x].name}`, value: x, hint: RACER_BY_ID[x].text })); opts.push({ label: 'Niemanden kopieren', value: null });
+          r.as = await this.choose({ kind: 'twinPick', player: pi, racer: r, title: 'Twin: Wen kopieren?', text: 'Ein Läufer, der ein früheres Rennen gewonnen hat.', options: opts });
+          if (r.as) this.log(`Twin läuft als ${RACER_BY_ID[r.as].emoji} ${RACER_BY_ID[r.as].name}.`, 'power');
+        }
+      }
+    }
+    for (const r of race.racers) { const b = (r.id === 'egg' || r.id === 'twin') ? r.as : r.id; if (b === 'sisyphus') this.addPoints(r.player, 4, 'Sisyphus: Keep Rollin\''); }
+    await this.choose({ kind: 'continue', player: this.startPlayer, title: 'Alle Läufer stehen am Start', text: 'Bereit für das Rennen?', options: [{ label: 'Rennen starten', value: 1 }] });
+    let idx = 0, guard = 0;
+    const order = this.playerOrder(this.startPlayer);
+    try {
+      while (true) {
+        if (++guard > 600) { this.log('Zuglimit erreicht – Rennen wird abgebrochen.', 'warn'); break; }
+        const act = this.active();
+        if (act.length === 0) break;
+        if (act.length === 1 && race.finishers.length >= 1) {
+          const solo = act[0];
+          this.log(`${this.rname(solo)} ist der einzige verbliebene Läufer und läuft unangefochten ins Ziel.`, 'race');
+          solo.pos = FINISH; this.render(); this.finish(solo); break;
+        }
+        const pi = order[idx];
+        await this.playerTurn(pi);
+        if (race.nextOverride != null) { idx = order.indexOf(race.nextOverride); race.nextOverride = null; }
+        else idx = (idx + 1) % order.length;
+      }
+    } catch (e) { if (!e.isRaceEnd) throw e; }
+    race.over = true; race.current = null;
+    await this.afterRace();
+  }
+
+  async playerTurn(pi) {
+    const race = this.race;
+    race.currentPlayer = pi;
+    let mine = race.racers.filter(x => x.active && x.player === pi);
+    if (!mine.length) return;
+    await this.settleCopyPick(pi);
+    if (this.perPlayer > 1 && !race.firstTurnDone[pi]) {
+      race.firstTurnDone[pi] = true;
+      let r = mine[0];
+      if (mine.length > 1) { const id = await this.choose({ kind: 'firstRacer', player: pi, title: `${this.pname(pi)}: Erster Zug`, text: 'Im ersten Zug ziehst du nur einen deiner beiden Läufer.', options: mine.map(x => ({ label: this.rname(x), value: x.id })) }); r = mine.find(x => x.id === id); }
+      await this.takeTurnWithExtras(r);
+      return;
+    }
+    const done = new Set();
+    while (true) {
+      mine = race.racers.filter(x => x.active && x.player === pi && !done.has(x));
+      if (!mine.length) break;
+      let r = mine[0];
+      if (mine.length > 1) { const id = await this.choose({ kind: 'racerOrder', player: pi, title: `${this.pname(pi)}: Welcher Läufer zuerst?`, options: mine.map(x => ({ label: `${this.rname(x)} – ${this.spaceName(x.pos)}${x.tripped ? ' (liegt flach)' : ''}`, value: x.id })) }); r = mine.find(x => x.id === id); }
+      done.add(r);
+      await this.takeTurnWithExtras(r);
+    }
+  }
+
+  async takeTurnWithExtras(r) {
+    let extra = 0;
+    do {
+      this.race.extraTurn = null;
+      await this.takeTurn(r);
+      if (this.race.extraTurn === r && r.active && extra < 5) { extra++; this.log(`${this.rname(r)} ist erneut am Zug.`, 'power'); } else break;
+    } while (true);
+    this.race.extraTurn = null;
+  }
+
+  /* ---------- Zug ---------- */
+  async takeTurn(r) {
+    const race = this.race;
+    race.turn++; race.current = r; race.dicemongerUsed = false; race.seen = new Set();
+    const startPos = r.pos;
+    this.log(`▶ ${this.rname(r)} ist am Zug.`, 'turn', { racer: r.id, player: r.player });
+    await this.choose({ kind: 'turnStart', player: r.player, racer: r, title: `${this.pname(r.player)}: ${r.def.name} ist am Zug`, text: r.tripped ? `${r.def.name} liegt flach – steht jetzt auf und überspringt den Hauptzug.` : `${r.def.name} steht auf ${this.spaceName(r.pos)}.`, options: [{ label: 'Zug beginnen', value: 1 }] });
+    let skipMain = false;
+    if (r.tripped) { r.tripped = false; skipMain = true; this.log(`${r.def.name} steht wieder auf und überspringt den Hauptzug.`, 'trip'); }
+    this.render();
+    if (this.has(r, 'mastermind') && !r.predicted) {
+      r.predicted = true;
+      const cands = this.active();
+      r.prediction = await this.choose({ kind: 'predictWinner', player: r.player, racer: r, title: 'Mastermind: Wer gewinnt das Rennen?', text: 'Stimmt die Vorhersage, endet das Rennen sofort und Mastermind wird Zweiter.', options: cands.map(x => ({ label: this.rname(x), value: x.id })) });
+      this.log(`${r.def.name} sagt voraus: ${RACER_BY_ID[r.prediction].name} gewinnt.`, 'power');
+      await this.powerHappened(r);
+    }
+    if (this.has(r, 'hare') && !skipMain && this.aloneInLead(r)) { skipMain = true; this.log(`${r.def.name} ist allein in Führung – Hybris! Hauptzug wird übersprungen.`, 'power'); await this.powerHappened(r); }
+    await this.beforeMainMove(r);
+    if (!skipMain && r.active) await this.mainMove(r);
+    if (!r.active) return;
+    await this.endOfTurn(r, startPos);
+  }
+
+  async beforeMainMove(r) {
+    if (!r.active) return;
+    switch (this.pw(r)) {
+      case 'loser':
+        if (this.aloneInLast(r)) { this.addPoints(r.player, 1, `${r.def.name} allein Letzter`); await this.powerHappened(r); }
+        break;
+      case 'party': {
+        this.log(`${r.def.name}: Alle Läufer ziehen 1 Feld auf das Party Animal zu.`, 'power');
+        for (const o of this.othersInOrder(r)) {
+          if (!o.active || !r.active) continue;
+          if (o.pos < r.pos) await this.moveRacer(o, 1, 'power'); else if (o.pos > r.pos) await this.moveRacer(o, -1, 'power');
+        }
+        await this.powerHappened(r);
+        break; }
+      case 'cheerleader': {
+        const a = this.active(); const mn = Math.min(...a.map(x => x.pos)); const lasts = a.filter(x => x.pos === mn);
+        const ok = await this.yesNo(r.player, 'Cheerleader: Rah Rah?', `Letztplatzierte (${lasts.map(x => x.def.name).join(', ')}) ziehen 2, danach zieht ${r.def.name} 1.`, r, 'cheerleader');
+        if (ok) { for (const l of lasts) { if (l.active) await this.moveRacer(l, 2, 'power'); } if (r.active) await this.moveRacer(r, 1, 'power'); await this.powerHappened(r); }
+        break; }
+      case 'thirdwheel': {
+        const counts = {}; this.active().forEach(x => { counts[x.pos] = (counts[x.pos] || 0) + 1; });
+        const spaces = Object.keys(counts).map(Number).filter(p => counts[p] === 2 && p !== r.pos);
+        if (!spaces.length) break;
+        const opts = spaces.map(p => ({ label: `${this.spaceName(p)}: ${this.racersAt(p).map(x => x.def.emoji + ' ' + x.def.name).join(' + ')}`, value: p }));
+        opts.push({ label: 'Nicht warpen', value: -1 });
+        const p = await this.choose({ kind: 'target', sub: 'thirdwheel', player: r.player, racer: r, title: 'Third Wheel: Roll Through?', text: 'Warp auf ein Feld mit genau 2 Läufern (kein Zug – löst kein Überholen aus).', options: opts });
+        if (p >= 0) { this.log(`${r.def.name}: Roll Through auf ${this.spaceName(p)}.`, 'power'); await this.powerHappened(r); await this.moveRacer(r, p - r.pos, 'warp'); }
+        break; }
+      case 'hypnotist': {
+        const others = this.active().filter(x => x !== r && x.pos !== r.pos);
+        if (!others.length) break;
+        const opts = others.map(x => ({ label: `${this.rname(x)} (${this.spaceName(x.pos)})`, value: x.id }));
+        opts.push({ label: 'Niemanden warpen', value: null });
+        const id = await this.choose({ kind: 'target', sub: 'hypnotist', player: r.player, racer: r, title: 'Hypnotist: Hsssst?', text: `Einen Läufer auf mein Feld (${this.spaceName(r.pos)}) warpen.`, options: opts });
+        if (id) { const t = this.race.racers.find(x => x.id === id && x.active); if (t) { this.log(`${r.def.name}: Hsssst! ${t.def.name} wird auf ${this.spaceName(r.pos)} gewarpt.`, 'power'); await this.powerHappened(r); await this.moveRacer(t, r.pos - t.pos, 'warp'); } }
+        break; }
+    }
+  }
+
+  async mainMove(r) {
+    const race = this.race;
+    let base = null, roll = null, rocketTrip = false;
+    const p = this.pw(r);
+    const opts = [{ label: '🎲 Würfeln', value: 'roll' }];
+    if (p === 'legs') opts.push({ label: '🦵 Joggen: 5 ziehen ohne Würfel', value: 'legs' });
+    if (p === 'flipflop' && this.active().some(x => x !== r && x.pos !== r.pos)) opts.push({ label: '🩴 Flop Flip: Platz tauschen', value: 'flip' });
+    const method = opts.length > 1 ? await this.choose({ kind: 'method', sub: p, player: r.player, racer: r, title: `${r.def.name}: Hauptzug`, text: 'Wie ziehst du?', options: opts }) : 'roll';
+    if (method === 'flip') {
+      const others = this.active().filter(x => x !== r && x.pos !== r.pos);
+      const id = await this.choose({ kind: 'target', sub: 'flipflop', player: r.player, racer: r, title: 'Flop Flip: Mit wem tauschen?', options: others.map(x => ({ label: `${this.rname(x)} (${this.spaceName(x.pos)})`, value: x.id })) });
+      const t = others.find(x => x.id === id);
+      const a = r.pos, b = t.pos; r.pos = b; t.pos = a;
+      this.log(`${r.def.name} tauscht per Warp den Platz mit ${t.def.name} (${this.spaceName(a)} ⇄ ${this.spaceName(b)}).`, 'power', { warp: [[r.id, a, b], [t.id, b, a]] });
+      this.render(); await this.ui.pause(300);
+      await this.powerHappened(r);
+      await this.onStop(r); if (t.active) await this.onStop(t);
+      return;
+    }
+    if (method === 'legs') { base = 5; this.log(`${r.def.name} joggt: 5 Felder statt Würfelwurf.`, 'power'); await this.powerHappened(r); }
+    else {
+      if (p === 'genius') {
+        r.prediction = await this.choose({ kind: 'predictRoll', player: r.player, racer: r, title: 'Genius: Welche Zahl würfelst du?', options: [1, 2, 3, 4, 5, 6].map(n => ({ label: String(n), value: n })) });
+        this.log(`${r.def.name} sagt eine ${r.prediction} voraus.`, 'power');
+      }
+      roll = await this.rollMain(r);
+      if (!r.active) return;
+      let skipped = false;
+      for (const o of this.othersInOrder(r)) {
+        if (!o.active || !r.active) continue;
+        const op = this.pw(o);
+        if (op === 'lackey' && roll === 6) { this.log(`${o.def.name}: Sehr wohl, Sire! Zieht 2, bevor die 6 gezogen wird.`, 'power'); await this.moveRacer(o, 2, 'power'); await this.powerHappened(o); }
+        if (op === 'inchworm' && roll === 1) { skipped = true; this.log(`${o.def.name}: ${r.def.name} überspringt den Zug, Inchworm wriggelt 1.`, 'power'); await this.moveRacer(o, 1, 'power'); await this.powerHappened(o); }
+        if (op === 'skipper' && roll === 1) { race.nextOverride = o.player; this.log(`${o.def.name}: Salty Dog! ${this.pname(o.player)} ist als Nächster dran.`, 'power'); await this.powerHappened(o); }
+      }
+      if (p === 'skipper' && roll === 1) { race.extraTurn = r; this.log(`${r.def.name} würfelt eine 1 und ist gleich nochmal dran.`, 'power'); }
+      if (p === 'genius' && r.prediction === roll) { race.extraTurn = r; this.log(`${r.def.name} lag richtig – Extrazug!`, 'power'); await this.powerHappened(r); }
+      if (!r.active || skipped) return;
+      if (p === 'sisyphus' && roll === 6) {
+        this.log(`${r.def.name} würfelt 6: rollt zurück zum Start.`, 'power');
+        if (this.players[r.player].points > 0) this.addPoints(r.player, -1, 'Sisyphus');
+        await this.powerHappened(r);
+        if (r.pos !== 0) await this.moveRacer(r, -r.pos, 'warp');
+        return;
+      }
+      base = roll;
+      if (p === 'alchemist' && roll <= 2) {
+        const ok = await this.yesNo(r.player, 'Alchemist: Transmutieren?', `Statt ${roll} → 4 Felder ziehen.`, r, 'alchemist', { roll });
+        if (ok) { base = 4; this.log(`${r.def.name} transmutiert den Wurf zu 4.`, 'power'); await this.powerHappened(r); }
+      }
+      if (p === 'rocket') {
+        const ok = await this.yesNo(r.player, 'Rocket Scientist: Kablooey?', `Doppelt ziehen (${roll * 2} statt ${roll}) – danach stürzen.`, r, 'rocket', { roll });
+        if (ok) { base = roll * 2; rocketTrip = true; this.log(`Kablooey! ${r.def.name} verdoppelt.`, 'power'); await this.powerHappened(r); }
+      }
+    }
+    if (!r.active) return;
+    let mod = 0; const why = [];
+    for (const c of this.findAll('coach')) if (c.pos === r.pos) { mod += 1; why.push('Coach +1'); await this.powerHappened(c); }
+    for (const g of this.findAll('gunk')) if (g !== r) { mod -= 1; why.push('Gunk -1'); await this.powerHappened(g); }
+    if (p === 'hare') { mod += 2; why.push('Hare +2'); await this.powerHappened(r); }
+    if (p === 'blimp') { if (r.pos < race.track.secondCorner) { mod += 3; why.push('Blimp +3'); } else { mod -= 1; why.push('Blimp -1'); } await this.powerHappened(r); }
+    if (p === 'party') { const c = this.racersAt(r.pos, r).length; if (c > 0) { mod += c; why.push(`Party +${c}`); await this.powerHappened(r); } }
+    if (!r.active) return;
+    const amount = Math.max(0, base + mod);
+    this.log(`${r.def.name} zieht ${amount}${why.length ? ' (' + base + ' ' + why.join(', ') + ')' : ''}.`, 'move');
+    await this.moveRacer(r, amount, 'main');
+    if (rocketTrip && r.active) this.trip(r);
+  }
+
+  async rollMain(r) {
+    const race = this.race;
+    await this.choose({ kind: 'roll', player: r.player, racer: r, title: `${r.def.name}: Hauptzug`, text: 'Würfeln und so viele Felder ziehen.', options: [{ label: '🎲 Würfeln', value: 1 }] });
+    let roll = this.d6();
+    this.log(`${r.def.name} würfelt ${roll}.`, 'roll', { roll, racer: r.id });
+    let magic = this.has(r, 'magician') ? 2 : 0;
+    while (true) {
+      const opts = [{ label: `${roll} behalten`, value: 'keep' }];
+      if (magic > 0) opts.push({ label: `🪄 Poof: neu würfeln (${magic} übrig)`, value: 'magic' });
+      const dm = this.find('dicemonger');
+      if (dm && !race.dicemongerUsed) opts.push({ label: '🎲 Dicey Deals: neu würfeln' + (dm !== r ? ' (Dicemonger zieht 1)' : ''), value: 'dm' });
+      if (opts.length === 1) break;
+      const c = await this.choose({ kind: 'reroll', player: r.player, racer: r, roll, title: `Wurf: ${roll}`, text: 'Wurf behalten oder wiederholen?', options: opts });
+      if (c === 'keep') break;
+      if (c === 'magic') { magic--; this.log(`${r.def.name}: Poof! Neuer Wurf.`, 'power'); await this.powerHappened(r); }
+      else { race.dicemongerUsed = true; this.log(`Dicey Deals: ${r.def.name} würfelt neu.`, 'power'); if (dm !== r) await this.moveRacer(dm, 1, 'power'); await this.powerHappened(dm); }
+      roll = this.d6();
+      this.log(`${r.def.name} würfelt neu: ${roll}.`, 'roll', { roll, racer: r.id });
+    }
+    return roll;
+  }
+
+  async endOfTurn(r, startPos) {
+    for (const h of this.findAll('heckler')) {
+      if (h !== r && r.active && Math.abs(r.pos - startPos) <= 1) {
+        this.log(`${h.def.name}: Schadenfreude! ${r.def.name} kam kaum vom Fleck – zieht 2.`, 'power');
+        await this.moveRacer(h, 2, 'power'); await this.powerHappened(h);
+      }
+    }
+  }
+
+  /* ---------- Bewegung ---------- */
+  trip(r) { if (!r.active) return; if (!r.tripped) this.log(`${r.def.name} stürzt und liegt flach!`, 'trip', { racer: r.id }); r.tripped = true; }
+  eliminate(r) { if (!r.active) return; r.active = false; r.eliminated = this.race.elimCount++; this.log(`${this.rname(r)} wurde aus dem Rennen eliminiert!`, 'trip', { eliminated: r.id }); }
+
+  async moveRacer(r, amount, kind) {
+    const race = this.race;
+    if (race.over || !r.active || amount === 0) return;
+    if (this.depth > 30) { this.log('Kettenreaktion abgebrochen (Endlosschleife – Regel 8).', 'warn'); return; }
+    this.depth++;
+    try {
+      const from = r.pos; let to; let skippedCount = 0;
+      if (amount > 0) {
+        if (this.has(r, 'leaptoad') && kind !== 'warp') {
+          let p = from, steps = 0;
+          while (steps < amount && p <= TRACK_LEN) { p++; if (p <= TRACK_LEN && this.racersAt(p, r).length > 0) { skippedCount++; continue; } steps++; }
+          to = p;
+        } else to = from + amount;
+        if (to > TRACK_LEN) {
+          const st = this.findAll('stickler').find(x => x !== r);
+          if (st && to !== FINISH) { this.log(`${st.def.name}: Eigentlich… ${r.def.name} müsste das Ziel exakt erreichen (${FINISH - from} nötig) – bewegt sich nicht.`, 'power'); await this.powerHappened(st); return; }
+          to = FINISH;
+        }
+      } else to = Math.max(0, from + amount);
+      const hb = this.findAll('hugebaby').find(x => x !== r && x.pos === to);
+      if (hb && to > 0 && to <= TRACK_LEN) { to -= 1; this.log(`${hb.def.name} blockiert ${this.spaceName(to + 1)} – ${r.def.name} kommt auf ${this.spaceName(to)}.`, 'power'); await this.powerHappened(hb); }
+      if (to === from) return;
+      const passed = (kind !== 'warp' && to > from) ? race.racers.filter(o => o !== r && o.active && o.pos > from && o.pos < to) : [];
+      const suckers = kind !== 'warp' ? race.racers.filter(o => o !== r && o.active && o.pos === from && this.pw(o) === 'suckerfish') : [];
+      r.pos = to;
+      const finishedNow = to > TRACK_LEN;
+      this.log(`${r.def.name} ${kind === 'warp' ? 'warpt' : 'bewegt sich'} ${this.spaceName(from)} → ${this.spaceName(to)}${passed.length ? ' und überholt ' + passed.map(x => x.def.name).join(', ') : ''}.`, kind === 'warp' ? 'power' : 'move', { move: [r.id, from, to, kind] });
+      this.render();
+      await this.ui.pause(kind === 'warp' ? 350 : Math.min(900, 120 + 90 * Math.abs(to - from)));
+      if (finishedNow) this.finish(r);
+      for (let i = 0; i < skippedCount; i++) await this.powerHappened(r);
+      for (const o of passed) {
+        if (!o.active) continue;
+        if (this.has(o, 'banana') && r.active) { this.log(`${o.def.name}: ${r.def.name} rutscht aus!`, 'power'); this.trip(r); await this.powerHappened(o); }
+        if (this.has(r, 'centaur') && o.active) { this.log(`Hufschlag! ${o.def.name} zieht 2 zurück.`, 'power'); await this.moveRacer(o, -2, 'power'); await this.powerHappened(r); }
+      }
+      if (!finishedNow) await this.onStop(r);
+      for (const s of suckers) {
+        if (!s.active || race.over) continue;
+        const target = finishedNow ? FINISH : r.pos;
+        if (target === s.pos) continue;
+        const ok = await this.yesNo(s.player, 'Suckerfish: Sauger!', `${r.def.name} hat sich von deinem Feld bewegt. Mitziehen nach ${this.spaceName(target)}?`, s, 'suckerfish', { target });
+        if (ok) { this.log(`${s.def.name} saugt sich an ${r.def.name} fest.`, 'power'); await this.powerHappened(s); await this.moveRacer(s, target - s.pos, 'power'); }
+      }
+    } finally { this.depth--; }
+  }
+
+  async onStop(r) {
+    const race = this.race; const p = r.pos;
+    if (!r.active || race.over) return;
+    const key = r.id + '@' + p + '|' + race.racers.map(x => x.pos + (x.tripped ? 't' : '') + (x.active ? '' : 'x')).join(',');
+    if (race.seen.has(key)) { this.log(`Endlosschleife erkannt (${r.def.name} auf ${this.spaceName(p)}): einmal durchlaufen, dann beendet – Regel 8.`, 'warn'); return; }
+    race.seen.add(key);
+    const sp = race.track.specials[p];
+    if (sp) {
+      if (sp.type === 'arrow') { this.log(`Pfeil auf Feld ${p}: ${r.def.name} bewegt sich ${sp.delta > 0 ? '+' : ''}${sp.delta}.`, 'track'); await this.moveRacer(r, sp.delta, 'arrow'); return; }
+      if (sp.type === 'rock') { this.log(`Stein auf Feld ${p}!`, 'track'); this.trip(r); }
+      if (sp.type === 'star') { this.log(`Stern auf Feld ${p}!`, 'track'); this.addPoints(r.player, 1, 'Stern-Feld'); }
+    }
+    for (const o of this.priorityOrder()) {
+      if (race.over) return;
+      if (!o.active || !r.active || r.pos !== p) return;
+      switch (this.pw(o)) {
+        case 'babayaga':
+          if (o === r) { const vs = this.racersAt(p, r); if (vs.length) { this.log(`${o.def.name}: Leg it! Alle auf ihrem Feld stürzen.`, 'power'); vs.forEach(x => this.trip(x)); await this.powerHappened(o); } }
+          else if (o.pos === p) { this.log(`${o.def.name}: ${r.def.name} hält auf ihrem Feld und stürzt.`, 'power'); this.trip(r); await this.powerHappened(o); }
+          break;
+        case 'mouth':
+          if (o === r) { const vs = this.racersAt(p, r); if (vs.length === 1) { this.log(`${o.def.name}: Chomp!`, 'power', { chomp: vs[0].id }); this.eliminate(vs[0]); await this.powerHappened(o); } }
+          break;
+        case 'romantic':
+          if (this.racersAt(p).length === 2) { this.log(`${o.def.name}: Ah, Liebe! Zieht 2.`, 'power'); await this.moveRacer(o, 2, 'power'); await this.powerHappened(o); }
+          break;
+        case 'duelist': {
+          let foes = [];
+          if (o === r) foes = this.racersAt(p, r); else if (o.pos === p) foes = [r];
+          for (const f of foes) {
+            for (let n = 0; n < 3; n++) {
+              if (!o.active || !f.active || o.pos !== f.pos || race.over) break;
+              const ok = await this.yesNo(o.player, 'Duelist: DUELL?', `Duell gegen ${f.def.name}: beide würfeln, der Höhere zieht 2 (Gleichstand: Duelist).`, o, 'duelist', { foe: f.id });
+              if (!ok) break;
+              const a = this.d6(), b = this.d6(); const win = a >= b ? o : f;
+              this.log(`Duell! ${o.def.name} ${a} vs ${f.def.name} ${b} → ${win.def.name} zieht 2.`, 'roll', { duel: [a, b] });
+              await this.powerHappened(o); await this.moveRacer(win, 2, 'power');
+            }
+          }
+          break; }
+      }
+    }
+  }
+
+  async powerHappened(owner) {
+    for (const sc of this.findAll('scoocher')) {
+      if (sc === owner || this.race.over) continue;
+      this.log(`${sc.def.name} scoocht 1.`, 'power');
+      await this.moveRacer(sc, 1, 'power');
+    }
+  }
+
+  finish(r) {
+    const race = this.race;
+    r.active = false; r.tripped = false;
+    const place = race.finishers.length + 1;
+    r.finished = place; race.finishers.push(r);
+    this.log(`🏁 ${this.rname(r)} überquert die Ziellinie als ${place}.!`, 'race', { finish: [r.id, place] });
+    this.addPoints(r.player, place === 1 ? GOLD[race.idx] : SILVER[race.idx], place === 1 ? 'Gold-Trophäe' : 'Silber-Rosette');
+    if (place === 1) {
+      const mm = race.racers.find(x => x.predicted && x.prediction === r.id && (x.active ? this.pw(x) === 'mastermind' : x === r));
+      if (mm) {
+        this.log(`${mm.def.name} hat ${r.def.name} vorausgesagt – Rennen endet, ${mm.def.name} wird Zweiter!`, 'power');
+        mm.active = false; mm.finished = 2; race.finishers.push(mm);
+        this.addPoints(mm.player, SILVER[race.idx], 'Silber-Rosette (Mastermind)');
+        race.over = true; throw new RaceEnd();
+      }
+    }
+    if (race.finishers.length >= 2) { race.over = true; throw new RaceEnd(); }
+  }
+
+  async afterRace() {
+    const race = this.race;
+    const [g, s] = race.finishers;
+    const lines = [];
+    lines.push(g ? `🏆 1. Platz: ${this.rname(g)} (+${GOLD[race.idx]})` : '🏆 1. Platz: niemand');
+    lines.push(s ? `🥈 2. Platz: ${this.rname(s)} (+${SILVER[race.idx]})` : '🥈 2. Platz: niemand – Silber verfällt');
+    if (this.variant === 'double') {
+      const pts = this.players.map(p => race.racers.filter(r => r.player === p.idx).reduce((a, r) => a + (r.finished === 1 ? GOLD[race.idx] : r.finished === 2 ? SILVER[race.idx] : 0), 0));
+      const mn = Math.min(...pts); const cands = this.players.filter((_, i) => pts[i] === mn);
+      this.startPlayer = cands.length === 1 ? cands[0].idx : cands[Math.floor(this.rng() * cands.length)].idx;
+      lines.push(`Nächster Startspieler: ${this.pname(this.startPlayer)} (weniger Punkte im Rennen${cands.length > 1 ? ', Roll-off' : ''}).`);
+    } else {
+      const rest = race.racers.filter(r => !r.finished);
+      if (rest.length) {
+        const elim = rest.filter(r => r.eliminated != null).sort((a, b) => a.eliminated - b.eliminated);
+        const last = elim.length ? elim[0] : rest.slice().sort((a, b) => a.pos - b.pos)[0];
+        this.startPlayer = last.player; lines.push(`Nächster Startspieler: ${this.pname(last.player)} (${last.def.name} war am weitesten zurück).`);
+      }
+    }
+    this.players.forEach(p => race.racers.filter(r => r.player === p.idx).forEach(r => p.results.push({ id: r.id, as: r.as, finished: r.finished, eliminated: r.eliminated, race: race.idx })));
+    this.raceHistory.push({ idx: race.idx, track: race.track.key, first: g ? (g.as || g.id) : null, second: s ? (s.as || s.id) : null, firstPlayer: g ? g.player : null, secondPlayer: s ? s.player : null });
+    this.log(lines.join(' '), 'race', { raceEnd: race.idx });
+    this.phase = 'raceResult';
+    await this.choose({ kind: 'continue', player: this.startPlayer, title: `Rennen ${race.idx + 1} beendet`, text: lines.join('\n'), options: [{ label: race.idx < 3 ? 'Weiter zum nächsten Rennen' : 'Zur Siegerehrung', value: 1 }] });
+  }
+
+  /* ---------- View-Modell für Clients ---------- */
+  toView() {
+    const race = this.race;
+    return {
+      phase: this.phase, variant: this.variant, seed: this.seed, raceIdx: this.raceIdx, startPlayer: this.startPlayer,
+      players: this.players.map(p => ({ idx: p.idx, name: p.name, color: p.color, points: p.points, team: p.team, used: p.used, results: p.results })),
+      draftInfo: this.draftInfo, pool: this.pool,
+      race: race ? {
+        idx: race.idx, track: race.track.key, over: race.over, turn: race.turn,
+        current: race.current ? race.current.id : null, currentPlayer: race.currentPlayer,
+        racers: race.racers.map(r => ({ id: r.id, as: r.as, pw: this.pw(r), player: r.player, pos: r.pos, tripped: r.tripped, active: r.active, finished: r.finished, eliminated: r.eliminated })),
+        finishers: race.finishers.map(f => f.id)
+      } : null,
+      winners: this.winners.map(w => w.idx),
+      history: this.raceHistory
+    };
+  }
+}
+
+const ENGINE = { Game, RaceEnd, RACERS, RACER_BY_ID, TRACKS, SCHEDULE, GOLD, SILVER, TRACK_LEN, FINISH, PLAYER_COLORS, mulberry32, BEFORE_RACE_POWERS };
+if (typeof module !== 'undefined') module.exports = ENGINE;
+if (typeof window !== 'undefined') window.ENGINE = ENGINE;
+
+})();</script>
+<script>(function(){
+'use strict';
+/* ============================================================
+   BOT – antwortet auf engine.choose()-Fragen wie ein Mensch:
+   Heuristiken pro Fragetyp, leichte Fehlerquote, Reaktionszeit.
+   ============================================================ */
+const ENG = (typeof module !== 'undefined') ? require('./engine.js') : window.ENGINE;
+const { FINISH, TRACK_LEN, RACER_BY_ID } = ENG;
+
+const RATING = { hare: 9, legs: 8.5, scoocher: 7.5, blimp: 7, magician: 7, gunk: 6.5, alchemist: 6.5, flipflop: 6.5, leaptoad: 6, party: 6, thirdwheel: 6, romantic: 6, rocket: 6, suckerfish: 6, copycat: 6, twin: 5.5, centaur: 5.5, coach: 5, skipper: 5, genius: 5, dicemonger: 5, lackey: 5, inchworm: 5, heckler: 5.5, mouth: 5.5, stickler: 5, hypnotist: 5, duelist: 5, sisyphus: 5, mastermind: 5, egg: 5, cheerleader: 4.5, banana: 4.5, babayaga: 4.5, hugebaby: 4, loser: 4 };
+const CROWD = { thirdwheel: 1, romantic: 1, party: 1, leaptoad: 0.6, mouth: 0.5, duelist: 0.5, heckler: 0.4, scoocher: 0.8, suckerfish: 0.5, lackey: 0.4, inchworm: 0.4 };
+const BOT_NAMES = ['Kai-Uwe', 'Ronja', 'Detlef', 'Miri', 'Torben', 'Svenja', 'Bodo', 'Yvonne', 'Hauke', 'Steffi', 'Olaf', 'Nadine'];
+
+function mkRng(seed) { let a = seed >>> 0; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+class Bot {
+  constructor(o) {
+    o = o || {};
+    this.rng = mkRng(o.seed == null ? Math.floor(Math.random() * 1e9) : o.seed);
+    this.errorRate = o.errorRate == null ? 0.12 : o.errorRate;   // Anteil bewusst zweitbester Entscheidungen
+    this.speed = o.speed == null ? 1 : o.speed;                   // 0 = sofort (Tests), 1 = menschlich
+  }
+  rate(id, n) { return (RATING[id] || 5) + (CROWD[id] || 0) * Math.max(0, n - 3); }
+  noise(s) { return (this.rng() - 0.5) * 2 * (s == null ? 1 : s); }
+  /** Reaktionszeit in ms, abhängig von Fragetyp */
+  delayFor(spec) {
+    if (this.speed === 0) return 0;
+    const r = this.rng;
+    const base = { turnStart: [600, 1400], roll: [500, 1100], continue: [900, 2200], reroll: [900, 1900], optional: [1000, 2400], target: [1500, 3200], method: [900, 1800], draft: [1800, 4200], pick: [2000, 4500], predictRoll: [700, 1500], predictWinner: [1500, 3200], copyPick: [1200, 2400], eggPick: [1500, 3000], twinPick: [1500, 3000], racerOrder: [800, 1600], firstRacer: [900, 1800] }[spec.kind] || [800, 2000];
+    let ms = base[0] + r() * (base[1] - base[0]);
+    if (r() < 0.08) ms += 1500 + r() * 2500; // ab und zu abgelenkt
+    return Math.round(ms * this.speed);
+  }
+  /** Wählt einen Optionswert. Bewertet Optionen, nimmt meist die beste. */
+  decide(game, spec) {
+    const opts = spec.options;
+    if (opts.length === 1) return opts[0].value;
+    const scored = opts.map(o => ({ o, s: this.score(game, spec, o) }));
+    scored.sort((a, b) => b.s - a.s);
+    if (scored.length > 1 && this.rng() < this.errorRate && scored[1].s > -50) return scored[1].o.value;
+    return scored[0].o.value;
+  }
+  score(g, spec, o) {
+    const v = o.value; const n = g.players.length; const r = spec.racer; const race = g.race;
+    const me = spec.player;
+    const posOf = id => { const x = race && race.racers.find(y => y.id === id); return x ? x.pos : 0; };
+    const lead = () => race ? Math.max(...g.active().map(x => x.pos)) : 0;
+    switch (spec.kind) {
+      case 'draft': {
+        let s = this.rate(v, n) + this.noise(1.2);
+        if (v === 'twin') s -= 1; // erst ab Rennen 2 nützlich
+        const team = g.players[me].team;
+        if (team.includes('scoocher') && ['gunk', 'coach', 'hare'].includes(v)) s += 0.5;
+        return s;
+      }
+      case 'pick': {
+        // Schwache Läufer früh, starke spät (Gold 3→6). Twin erst, wenn Sieger existieren.
+        const avail = spec.options.map(x => x.value);
+        const rated = avail.map(id => ({ id, r: this.rate(id, n) + (id === 'twin' ? (g.raceHistory.length ? 1.5 : -4) : 0) })).sort((a, b) => a.r - b.r);
+        const races = g.raceIdx, remaining = avail.length;
+        const target = Math.min(rated.length - 1, Math.round((races / 3) * (rated.length - 1)));
+        const idx = rated.findIndex(x => x.id === v);
+        // Wenn wir hinten liegen, im letzten Rennen den Besten; wenn vorn, egal.
+        return -Math.abs(idx - target) * 2 + this.noise(1.5) + (remaining <= 1 ? 0 : 0);
+      }
+      case 'turnStart': case 'roll': case 'continue': return 0;
+      case 'method': {
+        if (v === 'legs') { const st = g.findAll('stickler').some(x => x !== r); const exact = FINISH - r.pos; return (st && exact < 5 && exact >= 1) ? -5 : 4; }
+        if (v === 'flip') { const best = g.active().filter(x => x !== r).reduce((m, x) => Math.max(m, x.pos), -1); return best - r.pos >= 4 ? 5 : -2; }
+        return 0;
+      }
+      case 'target': {
+        if (spec.sub === 'flipflop') return posOf(v) - r.pos;
+        if (spec.sub === 'thirdwheel') { if (v === -1) return 0.5; return v - r.pos; }
+        if (spec.sub === 'hypnotist') { if (v == null) return 0.3; const t = race.racers.find(x => x.id === v); const gain = t.pos - r.pos; return t.player === me ? -9 : gain > 2 ? gain : -1; }
+        return this.noise();
+      }
+      case 'reroll': {
+        const roll = spec.roll; const st = g.findAll('stickler').some(x => x !== r); const exact = FINISH - r.pos;
+        let mods = 0; if (g.has(r, 'hare')) mods += 2; if (g.findAll('gunk').some(x => x !== r)) mods -= 1;
+        const eff = roll + mods;
+        if (v === 'keep') return st && eff > exact ? -3 : (roll >= 4 ? 3 : roll === 3 ? 0.5 : -1);
+        if (v === 'magic') return roll <= 3 ? 2 : -2;
+        if (v === 'dm') { const dm = g.find('dicemonger'); const cost = dm && dm !== r ? 1 : 0; return (roll <= 2 ? 2 : roll === 3 ? 0.3 : -3) - cost; }
+        return 0;
+      }
+      case 'optional': {
+        switch (spec.sub) {
+          case 'alchemist': return v ? 5 : -5;
+          case 'rocket': { const roll = spec.roll; const st = g.findAll('stickler').some(x => x !== r); const dist = FINISH - r.pos; if (v) { if (st && roll * 2 !== dist && roll * 2 > dist) return -8; if (roll * 2 >= dist) return 9; return roll >= 4 && r.pos < lead() ? 2 : -1; } return 0; }
+          case 'cheerleader': { const a = g.active(); const mn = Math.min(...a.map(x => x.pos)); const lasts = a.filter(x => x.pos === mn); const mine = lasts.some(x => x.player === me); return v ? (mine ? 4 : -3) : 0; }
+          case 'suckerfish': return v ? (spec.target > r.pos ? 6 : -6) : 0;
+          case 'duelist': { const foe = race.racers.find(x => x.id === spec.foe); if (foe && foe.player === me) return v ? -5 : 0; return v ? 2 : 0; }
+          default: return v ? 1 : 0;
+        }
+      }
+      case 'predictRoll': return (v === 3 || v === 4 ? 0.2 : 0) + this.noise(0.5);
+      case 'predictWinner': { const t = race.racers.find(x => x.id === v); if (!t) return 0; return this.rate(g.pw(t) || t.id, n) + (t.pos - lead()) * 0.5 + (t === r ? 1 : 0) + this.noise(); }
+      case 'copyPick': case 'eggPick': case 'twinPick': { if (v == null) return 0; return this.rate(v, n) + this.noise(0.8) + (v === 'twin' || v === 'egg' ? -5 : 0); }
+      case 'racerOrder': case 'firstRacer': { const t = race.racers.find(x => x.id === v); return t ? (t.tripped ? -3 : 0) + this.rate(g.pw(t) || t.id, n) * 0.1 + this.noise(0.5) : 0; }
+      default: return this.noise();
+    }
+  }
+}
+
+const BOTAPI = { Bot, BOT_NAMES, RATING };
+if (typeof module !== 'undefined') module.exports = BOTAPI;
+if (typeof window !== 'undefined') window.BOTAPI = BOTAPI;
+
+})();</script>
+<script>
+(function () {
+'use strict';
+const { Game, RACER_BY_ID, TRACKS, SCHEDULE, GOLD, SILVER, TRACK_LEN, FINISH, PLAYER_COLORS } = window.ENGINE;
+const { Bot } = window.BOTAPI;
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const spaceName = p => p === 0 ? 'Start' : p > TRACK_LEN ? 'Ziel' : `Feld ${p}`;
+const store = { get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } }, del(k) { try { localStorage.removeItem(k); } catch (e) { } } };
+function show(id) { ['home', 'localSetup', 'lobby', 'room', 'game'].forEach(s => $(s).classList.toggle('hidden', s !== id)); }
+function toast(msg, ms) { const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), ms || 2500); }
+
+/* ===================== SOUND (Web Audio, ohne Dateien) ===================== */
+const Sound = (() => {
+  let ctx = null; let muted = store.get('mp4k_muted', false);
+  const ensure = () => { if (!ctx) { try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { } } if (ctx && ctx.state === 'suspended') ctx.resume(); return ctx; };
+  const tone = (f, t0, dur, type, vol, slide) => { const c = ensure(); if (!c || muted) return; const o = c.createOscillator(), g = c.createGain(); o.type = type || 'square'; o.frequency.setValueAtTime(f, t0); if (slide) o.frequency.exponentialRampToValueAtTime(slide, t0 + dur); g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(vol || 0.12, t0 + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur); o.connect(g).connect(c.destination); o.start(t0); o.stop(t0 + dur + 0.02); };
+  const noise = (t0, dur, vol) => { const c = ensure(); if (!c || muted) return; const b = c.createBuffer(1, c.sampleRate * dur, c.sampleRate); const d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length); const s = c.createBufferSource(); s.buffer = b; const g = c.createGain(); g.gain.value = vol || 0.15; const f = c.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = 1200; s.connect(f).connect(g).connect(c.destination); s.start(t0); };
+  const now = () => (ensure() ? ctx.currentTime : 0);
+  return {
+    unlock() { ensure(); },
+    toggle() { muted = !muted; store.set('mp4k_muted', muted); return muted; }, isMuted() { return muted; },
+    click() { tone(900, now(), 0.05, 'square', 0.05); },
+    dice() { const t = now(); for (let i = 0; i < 6; i++) { noise(t + i * 0.07, 0.05, 0.12); tone(300 + Math.random() * 400, t + i * 0.07, 0.04, 'triangle', 0.05); } tone(660, t + 0.45, 0.12, 'square', 0.08); },
+    step(i) { tone(520 + (i || 0) * 30, now(), 0.05, 'square', 0.05); },
+    warp() { const t = now(); tone(200, t, 0.35, 'sine', 0.12, 1600); tone(1600, t + 0.35, 0.2, 'sine', 0.08, 300); },
+    trip() { const t = now(); tone(500, t, 0.25, 'sawtooth', 0.1, 120); noise(t + 0.2, 0.12, 0.2); },
+    power() { const t = now(); [880, 1175, 1568].forEach((f, i) => tone(f, t + i * 0.06, 0.12, 'triangle', 0.08)); },
+    chomp() { const t = now(); tone(160, t, 0.12, 'square', 0.15, 60); noise(t + 0.05, 0.15, 0.25); },
+    points() { const t = now(); tone(1318, t, 0.08, 'square', 0.08); tone(1760, t + 0.08, 0.16, 'square', 0.08); },
+    finish() { const t = now(); [523, 659, 784, 1047, 784, 1047, 1319].forEach((f, i) => tone(f, t + i * 0.11, i === 6 ? 0.5 : 0.12, 'square', 0.1)); },
+    race() { const t = now(); [392, 523, 659].forEach((f, i) => tone(f, t + i * 0.12, 0.18, 'triangle', 0.1)); },
+    notice() { tone(700, now(), 0.15, 'sine', 0.08, 500); }
+  };
+})();
+
+/* ===================== KONFETTI ===================== */
+const Confetti = (() => {
+  const cv = $('confetti'); const cx = cv.getContext('2d'); let parts = []; let raf = null;
+  function resize() { cv.width = innerWidth; cv.height = innerHeight; } addEventListener('resize', resize); resize();
+  function burst(n) { if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; for (let i = 0; i < (n || 140); i++) parts.push({ x: innerWidth / 2 + (Math.random() - .5) * 200, y: innerHeight * 0.3, vx: (Math.random() - .5) * 14, vy: -Math.random() * 12 - 4, g: 0.35, r: Math.random() * 6 + 4, c: ['#F06BB8', '#F8B500', '#3E9B3A', '#4D8FD6', '#E33D2B'][i % 5], a: Math.random() * 6.28, s: (Math.random() - .5) * .3, life: 120 + Math.random() * 60 }); if (!raf) raf = requestAnimationFrame(tick); }
+  function tick() { cx.clearRect(0, 0, cv.width, cv.height); parts = parts.filter(p => p.life-- > 0); for (const p of parts) { p.vy += p.g; p.x += p.vx; p.y += p.vy; p.vx *= 0.99; p.a += p.s; cx.save(); cx.translate(p.x, p.y); cx.rotate(p.a); cx.fillStyle = p.c; cx.fillRect(-p.r / 2, -p.r / 4, p.r, p.r / 2); cx.restore(); } raf = parts.length ? requestAnimationFrame(tick) : (cx.clearRect(0, 0, cv.width, cv.height), null); }
+  return { burst };
+})();
+
+/* ===================== RENDERER (arbeitet auf dem View-Modell) ===================== */
+const R = {
+  view: null, question: null, myIdx: null, mode: 'local', seats: null, lastLogSeq: 0, tokRects: {},
+  logEl: $('log'),
+  log(e) {
+    const d = document.createElement('div'); d.className = e.kind; d.textContent = e.text; this.logEl.appendChild(d); this.logEl.scrollTop = this.logEl.scrollHeight;
+    if (this.logEl.children.length > 500) this.logEl.firstChild.remove();
+    this.effects(e);
+  },
+  effects(e) {
+    const m = e.meta || {};
+    if (m.roll != null) this.diceAnim(m.roll);
+    if (m.move) { const [id, from, to, kind] = m.move; if (kind === 'warp') Sound.warp(); else { const n = Math.min(8, Math.abs(to - from)); for (let i = 0; i < n; i++) setTimeout(() => Sound.step(i), i * 70); } }
+    if (m.warp) Sound.warp();
+    if (m.finish) { Sound.finish(); Confetti.burst(m.finish[1] === 1 ? 180 : 90); }
+    else if (m.chomp || m.eliminated) Sound.chomp();
+    else if (e.kind === 'trip') Sound.trip();
+    else if (e.kind === 'points' && m.delta > 0) Sound.points();
+    else if (e.kind === 'power') Sound.power();
+    else if (e.kind === 'race' && !m.move) Sound.race();
+    else if (e.kind === 'notice') Sound.notice();
+  },
+  diceAnim(v) {
+    const box = $('dicebox'), d = $('dice'); box.classList.remove('hidden'); d.classList.add('rolling'); Sound.dice();
+    let n = 0; const iv = setInterval(() => { d.textContent = 1 + Math.floor(Math.random() * 6); if (++n > 7) { clearInterval(iv); d.classList.remove('rolling'); d.textContent = v; } }, 70);
+    $('diceText').textContent = 'Wurf';
+  },
+  captureRects() { const o = {}; document.querySelectorAll('#track .tok[data-id]').forEach(t => { o[t.dataset.id] = t.getBoundingClientRect(); }); this.tokRects = o; },
+  flip() {
+    const prev = this.tokRects; document.querySelectorAll('#track .tok[data-id]').forEach(t => {
+      const p = prev[t.dataset.id]; if (!p) return; const n = t.getBoundingClientRect(); const dx = p.left - n.left, dy = p.top - n.top; if (!dx && !dy) return;
+      t.style.transition = 'none'; t.style.transform = `translate(${dx}px,${dy}px)` + (t.classList.contains('down') ? ' rotate(90deg)' : ''); t.getBoundingClientRect(); t.style.transition = ''; t.style.transform = t.classList.contains('down') ? 'rotate(90deg)' : ''; t.classList.add('flash'); setTimeout(() => t.classList.remove('flash'), 500);
+    });
+  },
+  render(view, question) {
+    this.view = view; this.question = question === undefined ? this.question : question;
+    this.captureRects();
+    this.renderScore(); this.renderTrack(); this.renderTeams(); this.renderAction();
+    this.flip();
+    const r = view.race; const tr = r ? TRACKS[r.track] : null;
+    $('racebadge').textContent = r ? `Rennen ${r.idx + 1} von 4 · ${tr.name} · Gold ${GOLD[r.idx]} / Silber ${SILVER[r.idx]}` : 'Draft';
+    $('phaseLine').textContent = { setup: 'Vorbereitung', draft: 'Draft: Teams zusammenstellen', pick: 'Geheime Läuferwahl', race: 'Rennen läuft', raceResult: 'Rennen beendet', final: 'Siegerehrung' }[view.phase] || '';
+    if (view.phase === 'final') this.showFinal();
+  },
+  renderScore() {
+    const v = this.view; $('score').innerHTML = v.players.map(p => { const seat = this.seats && this.seats[p.idx]; const st = seat ? (seat.kind === 'bot' ? '🤖' : seat.autopilot ? '🤖 Autopilot' : seat.connected === false ? '⛔ offline' : '') : ''; return `<span class="chip${this.myIdx === p.idx ? ' me' : ''}" data-p="${p.idx}"><span class="dot" style="background:${p.color}"></span>${esc(p.name)}<span class="st">${st}</span><span class="pts">${p.points}</span></span>`; }).join('');
+  },
+  tokenHtml(r) { const v = this.view; const cur = v.race.current === r.id; const p = v.players[r.player]; const d = RACER_BY_ID[r.id]; return `<span class="tok${r.tripped ? ' down' : ''}${cur ? ' cur' : ''}" data-id="${r.id}" style="border-color:${p.color}" title="${esc(d.name)} (${esc(p.name)})${r.as ? ' als ' + RACER_BY_ID[r.as].name : ''}${r.tripped ? ' – liegt flach' : ''}">${d.emoji}</span>`; },
+  spaceHtml(pos) {
+    const v = this.view; const track = v.race ? TRACKS[v.race.track] : TRACKS.mild; const sp = track.specials[pos]; const cls = ['sp'];
+    if (pos === 0) cls.push('start'); else if (pos === FINISH) cls.push('finish'); else if (pos % 5 === 0) cls.push('five'); else cls.push('c' + (pos % 4));
+    let inner = `<span class="num">${pos === 0 ? 'START' : pos === FINISH ? 'ZIEL' : pos}</span>`;
+    if (sp) inner += `<span class="spec">${sp.type === 'arrow' ? (sp.delta > 0 ? '➡' + sp.delta : '⬅' + (-sp.delta)) : sp.type === 'rock' ? '🪨' : '⭐'}</span>`;
+    if (v.race && pos <= TRACK_LEN) inner += v.race.racers.filter(r => r.active && r.pos === pos).map(r => this.tokenHtml(r)).join('');
+    return `<div class="${cls.join(' ')}" title="${spaceName(pos)}${sp ? ' · ' + (sp.type === 'arrow' ? 'Pfeil ' + (sp.delta > 0 ? '+' : '') + sp.delta : sp.type === 'rock' ? 'Stein: Sturz' : 'Stern: +1 Punkt') : ''}">${inner}</div>`;
+  },
+  renderTrack() {
+    const v = this.view; const track = v.race ? TRACKS[v.race.track] : TRACKS.mild; let h = '';
+    for (let p = 0; p <= 15; p++) h += this.spaceHtml(p);
+    const pod = v.race ? v.race.finishers.map((id, i) => { const d = RACER_BY_ID[id]; return `<span class="pod p${i + 1}">${i === 0 ? '🏆' : '🥈'} ${d.emoji} ${esc(d.name)}</span>`; }).join('') : '';
+    h += `<div class="band"><span class="tname">${esc(track.name.toUpperCase())}</span><span class="podium">${pod}</span></div>`;
+    h += this.spaceHtml(FINISH); for (let p = TRACK_LEN; p >= 16; p--) h += this.spaceHtml(p);
+    $('track').innerHTML = h;
+  },
+  renderTeams() {
+    const v = this.view;
+    $('teams').innerHTML = v.players.map(p => {
+      const rows = p.team.map(id => {
+        const d = RACER_BY_ID[id]; const racing = v.race && !v.race.over && v.race.racers.find(r => r.id === id && r.player === p.idx); const past = p.results.find(r => r.id === id);
+        let cls = 'mini', res = '';
+        if (racing) { cls += ' racing'; res = racing.active ? (racing.tripped ? '💫' : spaceName(racing.pos)) : racing.finished ? (racing.finished === 1 ? '🏆' : '🥈') : '✖'; }
+        else if (past) { cls += ' used'; res = past.finished === 1 ? '🏆' : past.finished === 2 ? '🥈' : past.eliminated != null ? '✖' : '–'; }
+        const as = racing && racing.as ? ` <small>(als ${RACER_BY_ID[racing.as].name})</small>` : '';
+        return `<div class="${cls}" title="${esc(d.power)}: ${esc(d.text)}"><span>${d.emoji}</span><span>${esc(d.name)}${as}</span><span class="res">${res}</span></div>`;
+      }).join('');
+      const drafting = v.phase === 'draft' && v.draftInfo && v.draftInfo.player === p.idx ? ' ← draftet' : '';
+      return `<div class="team"><div class="who"><span class="dot" style="background:${p.color}"></span>${esc(p.name)}${drafting}<span class="pts">${p.points} P</span></div>${rows || '<div class="waiting">noch kein Läufer</div>'}</div>`;
+    }).join('');
+  },
+  racerCard(r) { const d = RACER_BY_ID[r.id]; const pd = r.pw && r.pw !== r.id ? RACER_BY_ID[r.pw] : null; const st = (r.tripped ? ' · liegt flach' : '') + ` · ${spaceName(r.pos)}`; return `<div class="card"><div class="em">${d.emoji}</div><div><div class="pw">${esc(pd ? pd.power + ' (kopiert)' : d.power)}</div><div class="nm">${esc(d.name)}<span style="font-weight:400;font-size:13px">${esc(st)}</span></div><div class="tx">${esc(pd ? pd.text : d.text)}</div></div></div>`; },
+  renderAction() {
+    const v = this.view; const q = this.question; const tb = $('turnbar'); const rc = $('racercard'); const pr = $('prompt');
+    const pi = q ? q.player : (v.race && v.race.current != null ? v.race.racers.find(r => r.id === v.race.current).player : (v.draftInfo ? v.draftInfo.player : v.race ? v.race.currentPlayer : null));
+    if (pi == null) { tb.style.background = 'var(--ink)'; tb.innerHTML = '<span class="big">Bereit</span>'; } else { const p = v.players[pi]; tb.style.background = p.color; tb.innerHTML = `<span class="big">${esc(p.name)}</span><span>${q ? 'entscheidet' : 'ist dran'}</span>`; }
+    const rid = q && q.racer ? q.racer : (v.race ? v.race.current : null); const r = v.race && rid ? v.race.racers.find(x => x.id === rid) : null;
+    rc.innerHTML = v.phase === 'race' && r ? this.racerCard(r) : '';
+    if (!q) {
+      const w = this.waitingFor; let html = w && v.players[w.player] ? `<div class="waiting"><span class="spin"></span>Warten auf ${esc(v.players[w.player].name)}${w.secret ? ' (geheime Wahl)' : ''}…</div>` : '<div class="waiting"><span class="spin"></span>…</div>';
+      if (v.phase === 'draft' && v.pool && v.pool.length) html += '<div class="opts cards">' + v.pool.map(id => { const d = RACER_BY_ID[id]; return `<button disabled><span class="em">${d.emoji}</span><span><b>${esc(d.name)}</b><span class="hint">${esc(d.text)}</span></span></button>`; }).join('') + '</div>';
+      pr.innerHTML = html; return;
+    }
+    if (this.promptQid === q.qid) return; this.promptQid = q.qid;
+    if (q.kind === 'turnStart') $('dicebox').classList.add('hidden');
+    pr.innerHTML = ''; const h = document.createElement('h2'); h.textContent = q.title; pr.appendChild(h);
+    if (q.text) { const t = document.createElement('div'); t.className = 'txt'; t.textContent = q.text; pr.appendChild(t); }
+    const o = document.createElement('div'); pr.appendChild(o);
+    this.optionButtons(o, q.options, val => { Sound.click(); pr.innerHTML = '<div class="waiting"><span class="spin"></span>…</div>'; this.onAnswer(q, val); });
+  },
+  optionButtons(container, options, resolve) {
+    const cards = options.some(o => o.hint); container.className = 'opts' + (cards ? ' cards' : '');
+    options.forEach(o => { const b = document.createElement('button'); if (cards) { const em = (o.label.match(/^\S+/) || [''])[0]; const rest = o.label.slice(em.length).trim(); b.innerHTML = `<span class="em">${esc(em)}</span><span><b>${esc(rest)}</b><span class="hint">${esc(o.hint || '')}</span></span>`; } else b.textContent = o.label; b.addEventListener('click', () => resolve(o.value)); container.appendChild(b); });
+    const first = container.querySelector('button'); if (first) first.focus({ preventScroll: true });
+  },
+  secretPrompt(q, resolve) {
+    const ov = $('overlay'); const player = this.view.players[q.player]; ov.classList.remove('hidden');
+    ov.innerHTML = `<div class="cover"><div class="big">🙈</div><h2>Gerät an ${esc(player.name)} weitergeben</h2><p>Die Wahl bleibt geheim, bis alle gewählt haben.</p><div class="opts"><button class="primary" id="iam">Ich bin ${esc(player.name)}</button></div></div>`;
+    $('iam').focus(); $('iam').addEventListener('click', () => { ov.innerHTML = `<div class="cover"><h2 style="color:${player.color}">${esc(q.title)}</h2><p>${esc(q.text || '')}</p><div id="secretOpts"></div></div>`; this.optionButtons($('secretOpts'), q.options, v => { ov.classList.add('hidden'); ov.innerHTML = ''; Sound.click(); resolve(v); }); });
+  },
+  showFinal() {
+    if (this.finalShown) return; this.finalShown = true; const v = this.view; const ov = $('overlay'); ov.classList.remove('hidden');
+    const sorted = v.players.slice().sort((a, b) => b.points - a.points); const win = new Set(v.winners);
+    const rows = sorted.map(p => `<tr class="${win.has(p.idx) ? 'win' : ''}"><td><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${p.color};border:2px solid #000"></span> ${esc(p.name)}</td><td>${p.results.map(r => RACER_BY_ID[r.id].emoji + (r.finished === 1 ? '🏆' : r.finished === 2 ? '🥈' : r.eliminated != null ? '✖' : '')).join(' ')}</td><td><b>${p.points}</b></td></tr>`).join('');
+    const hist = v.history.map(h => `<li>Rennen ${h.idx + 1} (${TRACKS[h.track].name}): 🏆 ${h.first ? RACER_BY_ID[h.first].emoji + ' ' + esc(v.players[h.firstPlayer].name) : '–'} · 🥈 ${h.second ? RACER_BY_ID[h.second].emoji + ' ' + esc(v.players[h.secondPlayer].name) : '–'}</li>`).join('');
+    const names = v.winners.map(i => v.players[i].name);
+    ov.innerHTML = `<div class="cover final"><div class="big">🏆</div><h2>${names.length > 1 ? 'Gleichstand – gemeinsam gefeiert!' : esc(names[0]) + ' gewinnt!'}</h2><table><tr><th>Spieler</th><th>Läufer</th><th>Punkte</th></tr>${rows}</table><ul style="text-align:left;font-size:13px">${hist}</ul><div class="opts"><button class="primary" id="againBtn">${this.mode === 'online' ? 'Zurück zum Raum' : 'Neues Spiel'}</button><button class="quiet" id="closeFinal">Protokoll ansehen</button></div></div>`;
+    Confetti.burst(260); Sound.finish();
+    $('againBtn').addEventListener('click', () => { ov.classList.add('hidden'); if (this.mode === 'online') Net.backToLobby(); else location.reload(); });
+    $('closeFinal').addEventListener('click', () => ov.classList.add('hidden'));
+  },
+  reset() { this.logEl.innerHTML = ''; this.question = null; this.promptQid = null; this.finalShown = false; this.waitingFor = null; this.tokRects = {}; $('dicebox').classList.add('hidden'); $('overlay').classList.add('hidden'); $('overlay').innerHTML = ''; }
+};
+
+/* ===================== LOKALER MODUS (Hot Seat + Bots) ===================== */
+const Local = {
+  seats: [], game: null,
+  init() {
+    this.seats = [{ kind: 'human', name: store.get('mp4k_name', '') || 'Spieler 1' }, { kind: 'bot', name: 'Ronja' }, { kind: 'bot', name: 'Detlef' }];
+    this.renderSeats();
+    $('addLocalHuman').onclick = () => { if (this.seats.length < 6) { this.seats.push({ kind: 'human', name: 'Spieler ' + (this.seats.length + 1) }); this.renderSeats(); } };
+    $('addLocalBot').onclick = () => { if (this.seats.length < 6) { const used = this.seats.map(s => s.name); const pool = window.BOTAPI.BOT_NAMES.filter(n => !used.includes(n)); this.seats.push({ kind: 'bot', name: pool[Math.floor(Math.random() * pool.length)] }); this.renderSeats(); } };
+    $('startLocal').onclick = () => this.start();
+  },
+  renderSeats() {
+    $('localSeats').innerHTML = this.seats.map((s, i) => `<div class="seat"><span class="dot" style="background:${PLAYER_COLORS[i]}"></span><input type="text" value="${esc(s.name)}" maxlength="16" data-i="${i}" aria-label="Name"><span class="tag">${s.kind === 'bot' ? '🤖 Bot' : '🧑 Mensch'}</span><button class="small quiet" data-rm="${i}" ${this.seats.length <= 2 ? 'disabled' : ''}>✕</button></div>`).join('');
+    $('localSeats').querySelectorAll('input').forEach(inp => inp.addEventListener('input', e => { this.seats[+e.target.dataset.i].name = e.target.value; }));
+    $('localSeats').querySelectorAll('button[data-rm]').forEach(b => b.addEventListener('click', e => { this.seats.splice(+e.currentTarget.dataset.rm, 1); this.renderSeats(); }));
+  },
+  start() {
+    const names = this.seats.map((s, i) => s.name.trim() || `Spieler ${i + 1}`);
+    const bots = this.seats.map((s, i) => s.kind === 'bot' ? new Bot({ seed: Date.now() + i * 977 }) : null);
+    R.reset(); R.mode = 'local'; R.myIdx = null; R.seats = this.seats.map(s => ({ kind: s.kind, connected: true }));
+    show('game'); $('emojibar').classList.add('hidden'); Sound.unlock();
+    const self = this;
+    const ui = {
+      log(text, kind, meta) { R.log({ text, kind, meta }); },
+      render(g) { R.render(g.toView(), R.question); },
+      pause(ms) { return new Promise(r => setTimeout(r, ms)); },
+      choose(spec) {
+        return new Promise(resolve => {
+          const pub = { qid: spec.qid, kind: spec.kind, sub: spec.sub, title: spec.title, text: spec.text || '', secret: !!spec.secret, player: spec.player, racer: spec.racer ? spec.racer.id : null, options: spec.options.map(o => ({ label: o.label, value: o.value, hint: o.hint || null })) };
+          const bot = bots[spec.player];
+          if (bot) { R.question = null; R.promptQid = null; R.waitingFor = { player: spec.player, secret: !!spec.secret }; R.render(self.game.toView(), null); setTimeout(() => resolve(bot.decide(self.game, spec)), bot.delayFor(spec)); return; }
+          const humans = self.seats.filter(s => s.kind === 'human').length;
+          if (spec.secret && humans > 1) { R.question = null; R.render(self.game.toView(), null); R.secretPrompt(pub, resolve); return; }
+          R.onAnswer = (q, v) => { R.question = null; resolve(v); };
+          R.render(self.game.toView(), pub);
+        });
+      }
+    };
+    this.game = new Game({ playerNames: names, ui, variant: (names.length === 2 && $('localSingle2p').checked) ? 'single' : undefined });
+    this.game.play().catch(e => { console.error(e); R.log({ text: 'Fehler: ' + e.message, kind: 'warn' }); });
+  }
+};
+
+/* ===================== ONLINE-MODUS ===================== */
+const Net = {
+  ws: null, token: store.get('mp4k_token', null), name: null, room: null, connected: false, retry: 0, wantJoin: null,
+  url() { return (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws'; },
+  connect() {
+    if (this.ws && (this.ws.readyState === 0 || this.ws.readyState === 1)) return;
+    $('connStatus').textContent = 'Verbinde mit dem Server…';
+    let ws; try { ws = new WebSocket(this.url()); } catch (e) { $('connStatus').textContent = 'Keine Verbindung möglich (lokale Datei? Online-Modus braucht den Server).'; return; }
+    this.ws = ws;
+    ws.onopen = () => { this.retry = 0; this.send({ t: 'hello', token: this.token, name: this.name }); };
+    ws.onmessage = ev => { let m; try { m = JSON.parse(ev.data); } catch (e) { return; } this.handle(m); };
+    ws.onclose = () => { this.connected = false; $('connStatus').textContent = 'Verbindung getrennt – versuche erneut…'; if (this.room && $('game').classList.contains('hidden') === false) toast('Verbindung verloren – verbinde neu…'); const d = Math.min(8000, 800 * Math.pow(1.6, this.retry++)); setTimeout(() => this.connect(), d); };
+    ws.onerror = () => { };
+  },
+  send(o) { if (this.ws && this.ws.readyState === 1) this.ws.send(JSON.stringify(o)); },
+  handle(m) {
+    switch (m.t) {
+      case 'welcome': this.connected = true; this.token = m.token; store.set('mp4k_token', m.token); $('connStatus').textContent = `Verbunden als ${m.name}.`; if (this.wantJoin) { this.send({ t: 'join', code: this.wantJoin }); this.wantJoin = null; } break;
+      case 'rooms': this.renderRooms(m.rooms); break;
+      case 'room': this.room = m.room; this.showRoom(); if (m.room.status === 'lobby') { show('room'); } break;
+      case 'claim': this.room = m.room; this.showClaim(); break;
+      case 'left': this.room = null; R.reset(); show('lobby'); break;
+      case 'state': this.onState(m); break;
+      case 'log': R.log(m.entry); break;
+      case 'question': R.question = m.question; R.waitingFor = null; if (R.view) R.render(R.view, m.question); if (document.hidden) Sound.notice(); break;
+      case 'waiting': R.waitingFor = { player: m.player, secret: m.secret }; R.question = null; R.promptQid = null; if (R.view) R.render(R.view, null); break;
+      case 'notice': R.log({ text: m.msg, kind: 'notice' }); toast(m.msg, 3500); break;
+      case 'reaction': this.showReaction(m); break;
+      case 'error': this.showError(m.msg); break;
+    }
+  },
+  showError(msg) { const el = $('game').classList.contains('hidden') ? ($('room').classList.contains('hidden') ? $('lobbyErr') : $('roomErr')) : null; if (el) { el.textContent = msg; el.classList.remove('hidden'); setTimeout(() => el.classList.add('hidden'), 6000); } else toast(msg, 4000); },
+  renderRooms(list) { const el = $('roomList'); if (!list.length) { el.innerHTML = '<div class="waiting">Keine offenen Räume – erstelle einen.</div>'; return; } el.innerHTML = list.map(r => `<button data-code="${r.code}"><span>Raum <b>${r.code}</b> · Host ${esc(r.host)}</span><span>${r.count}/6 Sitze</span></button>`).join(''); el.querySelectorAll('button').forEach(b => b.onclick = () => this.send({ t: 'join', code: b.dataset.code })); this.checkRestore(); },
+  checkRestore() { const s = store.get('mp4k_snapshot', null); const box = $('restoreBox'); if (!s || !s.answers || Date.now() - s.savedAt > 12 * 3600 * 1000) { box.classList.add('hidden'); return; } box.classList.remove('hidden'); $('restoreInfo').textContent = `Raum ${s.code}, ${s.seats.map(x => x.name).join(', ')}, ${s.answers.length} Züge, ${new Date(s.savedAt).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })} Uhr.`; },
+  showRoom() {
+    const r = this.room; $('roomCode').textContent = r.code;
+    $('seats').innerHTML = r.seats.map(s => `<div class="seat${s.connected === false ? ' off' : ''}"><span class="dot" style="background:${PLAYER_COLORS[s.idx]}"></span><span>${esc(s.name)}${s.you ? ' (du)' : ''}${r.hostToken && s.you ? ' · Host' : ''}</span><span class="tag">${s.kind === 'bot' ? '🤖 Bot' : s.connected === false ? '⛔ offline' : '🧑 Mensch'}</span>${r.hostToken && !s.you && r.status === 'lobby' ? `<button class="small quiet" data-rm="${s.id}">✕</button>` : '<span></span>'}</div>`).join('');
+    $('seats').querySelectorAll('button[data-rm]').forEach(b => b.onclick = () => this.send({ t: 'removeSeat', seatId: b.dataset.rm }));
+    $('hostTools').classList.toggle('hidden', !r.hostToken); $('startRoom').classList.toggle('hidden', !r.hostToken || r.status !== 'lobby'); $('single2pWrap').classList.toggle('hidden', r.seats.length !== 2);
+    $('roomHint').textContent = r.hostToken ? 'Du bist Host: Bots hinzufügen und starten, sobald alle da sind (2–6 Sitze).' : `Warten auf den Host. Teile den Link, damit andere beitreten können.`;
+    if (r.status !== 'lobby') { show('game'); $('emojibar').classList.remove('hidden'); R.mode = 'online'; }
+    R.seats = r.seats; R.myIdx = r.seats.findIndex(s => s.you); if (R.view) R.render(R.view, R.question);
+    history.replaceState(null, '', location.pathname + '?room=' + r.code);
+  },
+  showClaim() {
+    const r = this.room; const ov = $('overlay'); ov.classList.remove('hidden');
+    ov.innerHTML = `<div class="cover"><h2>Spiel läuft bereits</h2><p>Übernimm einen freien Sitz:</p><div class="opts" id="claimOpts"></div><div class="opts"><button class="quiet" id="claimCancel">Abbrechen</button></div></div>`;
+    R.optionButtons($('claimOpts'), r.seats.filter(s => s.claimable).map(s => ({ label: `${s.name} übernehmen`, value: s.id })), id => { ov.classList.add('hidden'); ov.innerHTML = ''; this.send({ t: 'claim', seatId: id }); });
+    $('claimCancel').onclick = () => { ov.classList.add('hidden'); ov.innerHTML = ''; this.send({ t: 'leave' }); };
+  },
+  onState(m) {
+    if ($('game').classList.contains('hidden')) { R.reset(); show('game'); $('emojibar').classList.remove('hidden'); R.mode = 'online'; }
+    if (m.logs) { R.logEl.innerHTML = ''; m.logs.forEach(e => { const d = document.createElement('div'); d.className = e.kind; d.textContent = e.text; R.logEl.appendChild(d); }); R.logEl.scrollTop = R.logEl.scrollHeight; }
+    if (m.question) R.question = m.question; else if (m.question === null && m.logs) R.question = null;
+    R.onAnswer = (q, v) => { R.question = null; this.send({ t: 'answer', qid: q.qid, value: v }); };
+    R.render(m.view, R.question);
+    if (m.snapshot) store.set('mp4k_snapshot', m.snapshot);
+  },
+  showReaction(m) { const chip = document.querySelector(`.chip[data-p="${m.seat}"]`); if (!chip) return; const f = document.createElement('span'); f.className = 'float'; f.textContent = m.e; chip.appendChild(f); setTimeout(() => f.remove(), 1700); },
+  backToLobby() { this.send({ t: 'backToLobby' }); },
+  initUI() {
+    $('createRoom').onclick = () => this.send({ t: 'create' });
+    $('joinRoom').onclick = () => { const c = $('joinCode').value.trim().toUpperCase(); if (c) this.send({ t: 'join', code: c }); };
+    $('restoreBtn').onclick = () => { const s = store.get('mp4k_snapshot', null); if (s) this.send({ t: 'restore', snapshot: s }); };
+    $('addBot').onclick = () => this.send({ t: 'addBot' });
+    $('startRoom').onclick = () => this.send({ t: 'start', variant: $('single2p').checked ? 'single' : undefined });
+    $('leaveRoom').onclick = () => this.send({ t: 'leave' });
+    $('copyLink').onclick = () => { const link = location.origin + location.pathname + '?room=' + this.room.code; (navigator.clipboard ? navigator.clipboard.writeText(link) : Promise.reject()).then(() => toast('Link kopiert: ' + link), () => prompt('Link:', link)); };
+    const emojis = ['😂', '😱', '🔥', '🍌', '👏', '😤', '🎉', '💀'];
+    $('emojibar').innerHTML = emojis.map(e => `<button data-e="${e}">${e}</button>`).join('');
+    $('emojibar').querySelectorAll('button').forEach(b => b.onclick = () => this.send({ t: 'emoji', e: b.dataset.e }));
+  }
+};
+
+/* ===================== START ===================== */
+(function boot() {
+  $('myName').value = store.get('mp4k_name', '') || '';
+  const getName = () => { const n = $('myName').value.trim().slice(0, 16) || 'Spieler'; store.set('mp4k_name', n); return n; };
+  $('goLocal').onclick = () => { getName(); Local.init(); show('localSetup'); };
+  $('goOnline').onclick = () => { Net.name = getName(); show('lobby'); Net.connect(); if (Net.connected) Net.send({ t: 'setName', name: Net.name }); Net.checkRestore(); };
+  $('backHome1').onclick = () => show('home'); $('backHome2').onclick = () => show('home');
+  $('soundBtn').onclick = () => { const m = Sound.toggle(); $('soundBtn').textContent = m ? '🔇' : '🔊'; }; $('soundBtn').textContent = Sound.isMuted() ? '🔇' : '🔊';
+  $('quitBtn').onclick = () => { if (!confirm('Spiel verlassen?')) return; if (R.mode === 'online') { Net.send({ t: 'leave' }); } else location.reload(); };
+  Net.initUI();
+  document.addEventListener('pointerdown', () => Sound.unlock(), { once: true });
+  const params = new URLSearchParams(location.search); const code = params.get('room');
+  if (code) { Net.wantJoin = code.toUpperCase(); if (store.get('mp4k_name', '')) { Net.name = getName(); show('lobby'); Net.connect(); } else { $('goOnline').innerHTML = `🌐 Raum ${esc(code.toUpperCase())} beitreten<small>Name eingeben, dann geht es direkt in den Raum</small>`; } }
+})();
+})();
+</script>
+</body>
+</html>

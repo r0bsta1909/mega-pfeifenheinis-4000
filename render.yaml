@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: mega-pfeifenheinis-4000
+    runtime: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: node server/server.js
+    healthCheckPath: /health
